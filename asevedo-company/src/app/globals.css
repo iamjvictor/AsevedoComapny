@@ -1,0 +1,302 @@
+@import "tailwindcss";
+
+/**
+ * =============================================================================
+ * ASEVEDO COMPANY - Design System
+ * Dark Futuristic Theme with Neon Accents
+ * =============================================================================
+ */
+
+/* -------------------------------------------------------------------------- */
+/* CSS Custom Properties - Design Tokens                                      */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  /* Background colors */
+  --background: #0a0a0f;
+  --background-secondary: #12121a;
+  --background-tertiary: #1a1a25;
+
+  /* Foreground colors */
+  --foreground: #e8e8ed;
+  --foreground-secondary: #a0a0b0;
+  --foreground-muted: #6b6b80;
+
+  /* Primary accent - Cyan/Blue neon */
+  --primary: #00d4ff;
+  --primary-glow: rgba(0, 212, 255, 0.3);
+  --primary-dark: #0099cc;
+
+  /* Secondary accent - Purple/Violet neon */
+  --secondary: #a855f7;
+  --secondary-glow: rgba(168, 85, 247, 0.3);
+  --secondary-dark: #7c3aed;
+
+  /* Tertiary accent - Blue */
+  --tertiary: #3b82f6;
+  --tertiary-glow: rgba(59, 130, 246, 0.3);
+
+  /* Status colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  /* Surface colors */
+  --card: rgba(26, 26, 37, 0.8);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-hover: rgba(255, 255, 255, 0.05);
+
+  /* Glassmorphism */
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Spacing */
+  --section-padding: 6rem;
+  --container-padding: 1.5rem;
+
+  /* Border radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme overrides */
+[data-theme="light"] {
+  --background: #f8fafc;
+  --background-secondary: #f1f5f9;
+  --background-tertiary: #e2e8f0;
+
+  --foreground: #0f172a;
+  --foreground-secondary: #475569;
+  --foreground-muted: #94a3b8;
+
+  --card: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-hover: rgba(0, 0, 0, 0.02);
+
+  --glass: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.08);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Theme configuration for Tailwind                                           */
+/* -------------------------------------------------------------------------- */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-primary: var(--primary);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-glow: var(--secondary-glow);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Base Styles                                                                */
+/* -------------------------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    var(--font-sans),
+    system-ui,
+    sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Background gradient overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(
+      ellipse at 20% 0%,
+      rgba(0, 212, 255, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+    ellipse at 80% 100%,
+    rgba(168, 85, 247, 0.08) 0%,
+    transparent 50%
+  ),
+    radial-gradient(
+    ellipse at 50% 50%,
+    rgba(59, 130, 246, 0.03) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Typography                                                                 */
+/* -------------------------------------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+  color: var(--foreground-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Scrollbar Styling                                                          */
+/* -------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--foreground-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground-secondary);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Selection Highlight                                                        */
+/* -------------------------------------------------------------------------- */
+
+::selection {
+  background: var(--primary);
+  color: var(--background);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Utility Classes                                                            */
+/* -------------------------------------------------------------------------- */
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px var(--secondary-glow), 0 0 40px var(--secondary-glow);
+}
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Animations                                                                 */
+/* -------------------------------------------------------------------------- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--primary-glow);
+  }
+  50% {
+    box-shadow: 0 0 30px var(--primary-glow), 0 0 50px var(--primary-glow);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
