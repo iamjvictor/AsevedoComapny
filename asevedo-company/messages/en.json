@@ -144,5 +144,125 @@
   "LanguageSwitcher": {
     "portuguese": "PT",
     "english": "EN"
+  },
+  "Partner": {
+    "hero": {
+      "title": "Grow with Asevedo Company",
+      "titleHighlight": "as a partner",
+      "subtitle": "Refer projects, bridge the gap between companies and digital solutions, and earn commissions on closed contracts.",
+      "cta": "Become a partner",
+      "microcopy": "No membership fee · Commission per closed project"
+    },
+    "targetAudience": {
+      "title": "Anyone can be a",
+      "titleHighlight": "partner",
+      "subtitle": "You don't need to sell, code, or understand technology. Just connect those who need solutions with those who deliver.",
+      "reinforcement": "You refer. We diagnose, execute, and deliver.",
+      "items": {
+        "network": {
+          "title": "People with a contact network",
+          "description": "Friends, acquaintances, or contacts who know someone needing automation, systems, or technological improvements."
+        },
+        "professionals": {
+          "title": "Professionals from any field",
+          "description": "Accountants, lawyers, designers, salespeople, or any professional who knows companies with digital demands."
+        },
+        "informal": {
+          "title": "Informal partners",
+          "description": "No complex contracts, prior experience, or technical knowledge required."
+        },
+        "income": {
+          "title": "Those looking for extra income",
+          "description": "Referred a project that closed? You get the commission."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "titleHighlight": "in practice",
+      "observation": "All technical, commercial, and delivery work is done by Asevedo Company.",
+      "steps": {
+        "step1": "You sign up as a partner",
+        "step2": "Refer a company or project",
+        "step3": "Asevedo Company conducts the diagnosis",
+        "step4": "The contract is closed",
+        "step5": "The commission is registered",
+        "step6": "You get paid according to program rules"
+      }
+    },
+    "commissions": {
+      "title": "Simple and transparent",
+      "titleHighlight": "commission model",
+      "subtitle": "Our program rewards partners who refer real projects that convert into closed contracts.",
+      "standard": "Standard commission",
+      "performance": "Based on performance",
+      "perProject": "Per Project",
+      "perProjectDesc": "Payment per closed contract",
+      "note": "Complete program rules are shared after registration."
+    },
+    "bonus": {
+      "title": "Earn more by",
+      "titleHighlight": "hitting goals",
+      "subtitle": "Active partners can receive bonuses and additional benefits based on referral volume and consistency.",
+      "items": {
+        "monthly": "Monthly goal bonuses",
+        "increase": "Temporary commission increase",
+        "exclusive": "Exclusive benefits"
+      }
+    },
+    "transparency": {
+      "title": "Transparency at",
+      "titleHighlight": "every step",
+      "reinforcement": "We work with clarity, traceability, and respect in all partnerships.",
+      "items": {
+        "tracking": "Referral tracking",
+        "status": "Clear status for each lead",
+        "history": "Commission history",
+        "communication": "Direct team communication"
+      },
+      "dashboard": {
+        "example": "Dashboard view example",
+        "closed": "Closed",
+        "negotiation": "In negotiation",
+        "diagnosis": "Diagnosis"
+      }
+    },
+    "cta": {
+      "title": "Ready to become a",
+      "titleHighlight": "partner",
+      "subtitle": "Start now and earn money connecting companies to real solutions.",
+      "primaryButton": "Become a partner",
+      "secondaryButton": "Talk to our team",
+      "microcopy": "No cost · No risk · No mandatory goals"
+    },
+    "modal": {
+      "title": "Become a Partner",
+      "subtitle": "Fill in your details to start registration",
+      "form": {
+        "name": "Full Name *",
+        "namePlaceholder": "Your full name",
+        "email": "Email *",
+        "emailPlaceholder": "your@email.com",
+        "phone": "Phone / WhatsApp *",
+        "phonePlaceholder": "(00) 00000-0000",
+        "city": "City *",
+        "cityPlaceholder": "Your city",
+        "state": "State *",
+        "statePlaceholder": "Select",
+        "paymentInfo": "Payment information for commissions",
+        "cpf": "CPF (Tax ID) *",
+        "cpfPlaceholder": "000.000.000-00",
+        "pix": "PIX Key *",
+        "pixPlaceholder": "CPF, email, phone or random key",
+        "submit": "Submit registration",
+        "submitting": "Sending...",
+        "terms": "By registering, you agree to our terms and privacy policy."
+      },
+      "success": {
+        "title": "Registration Submitted!",
+        "message": "We received your registration successfully! We sent a confirmation link to your email. Access it to activate your account.",
+        "button": "Got it"
+      }
+    }
   }
 }

@@ -144,5 +144,125 @@
   "LanguageSwitcher": {
     "portuguese": "PT",
     "english": "EN"
+  },
+  "Partner": {
+    "hero": {
+      "title": "Cresça com a Asevedo Company",
+      "titleHighlight": "como parceiro",
+      "subtitle": "Indique projetos, faça a ponte entre empresas e soluções digitais e receba comissões por contratos fechados.",
+      "cta": "Tornar-se parceiro",
+      "microcopy": "Sem custo de adesão · Comissão por projeto fechado"
+    },
+    "targetAudience": {
+      "title": "Qualquer pessoa pode ser",
+      "titleHighlight": "parceira",
+      "subtitle": "Você não precisa vender, programar ou entender de tecnologia. Basta conectar quem precisa de soluções com quem sabe entregar.",
+      "reinforcement": "Você indica. Nós diagnosticamos, executamos e entregamos.",
+      "items": {
+        "network": {
+          "title": "Pessoas com rede de contatos",
+          "description": "Amigos, conhecidos ou contatos que sabem quem precisa de automação, sistemas ou melhorias tecnológicas."
+        },
+        "professionals": {
+          "title": "Profissionais de qualquer área",
+          "description": "Contadores, advogados, designers, vendedores ou qualquer profissional que conheça empresas com demandas digitais."
+        },
+        "informal": {
+          "title": "Parceiros informais",
+          "description": "Não é necessário contrato complexo, experiência prévia ou conhecimento técnico."
+        },
+        "income": {
+          "title": "Quem quer gerar renda extra",
+          "description": "Indicou um projeto que fechou? Você recebe comissão."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "Como funciona",
+      "titleHighlight": "na prática",
+      "observation": "Toda a parte técnica, comercial e de entrega é feita pela Asevedo Company.",
+      "steps": {
+        "step1": "Você se cadastra como parceiro",
+        "step2": "Indica uma empresa ou projeto",
+        "step3": "A Asevedo Company faz o diagnóstico",
+        "step4": "O contrato é fechado",
+        "step5": "A comissão é registrada",
+        "step6": "Você recebe conforme as regras do programa"
+      }
+    },
+    "commissions": {
+      "title": "Modelo de comissão",
+      "titleHighlight": "simples e transparente",
+      "subtitle": "Nosso programa remunera parceiros que indicam projetos reais que se convertem em contratos fechados.",
+      "standard": "Comissão padrão",
+      "performance": "Conforme performance",
+      "perProject": "Por Projeto",
+      "perProjectDesc": "Pagamento por contrato fechado",
+      "note": "As regras completas do programa são apresentadas após o cadastro."
+    },
+    "bonus": {
+      "title": "Ganhe mais ao",
+      "titleHighlight": "bater metas",
+      "subtitle": "Parceiros ativos podem receber bônus e benefícios adicionais conforme volume e consistência de indicações.",
+      "items": {
+        "monthly": "Bônus por metas mensais",
+        "increase": "Aumento temporário de comissão",
+        "exclusive": "Benefícios exclusivos"
+      }
+    },
+    "transparency": {
+      "title": "Transparência em",
+      "titleHighlight": "todas as etapas",
+      "reinforcement": "Trabalhamos com clareza, rastreabilidade e respeito em todas as parcerias.",
+      "items": {
+        "tracking": "Acompanhamento das indicações",
+        "status": "Status claro de cada lead",
+        "history": "Histórico de comissões",
+        "communication": "Comunicação direta com a equipe"
+      },
+      "dashboard": {
+        "example": "Exemplo da visualização do dashboard",
+        "closed": "Fechado",
+        "negotiation": "Em negociação",
+        "diagnosis": "Diagnóstico"
+      } 
+    },
+    "cta": {
+      "title": "Pronto para se tornar",
+      "titleHighlight": "parceiro",
+      "subtitle": "Comece agora e gere renda conectando empresas a soluções reais.",
+      "primaryButton": "Tornar-se parceiro",
+      "secondaryButton": "Já sou parceiro",
+      "microcopy": "Sem custo · Sem risco · Sem obrigação de metas"
+    },
+    "modal": {
+      "title": "Tornar-se Parceiro",
+      "subtitle": "Preencha seus dados para iniciar o cadastro",
+      "form": {
+        "name": "Nome Completo *",
+        "namePlaceholder": "Seu nome completo",
+        "email": "E-mail *",
+        "emailPlaceholder": "seu@email.com",
+        "phone": "Telefone / WhatsApp *",
+        "phonePlaceholder": "(00) 00000-0000",
+        "city": "Cidade *",
+        "cityPlaceholder": "Sua cidade",
+        "state": "Estado *",
+        "statePlaceholder": "Selecione",
+        "paymentInfo": "Dados para recebimento de comissões",
+        "cpf": "CPF *",
+        "cpfPlaceholder": "000.000.000-00",
+        "pix": "Chave PIX *",
+        "pixPlaceholder": "CPF, e-mail, telefone ou chave aleatória",
+        "submit": "Enviar cadastro",
+        "submitting": "Enviando...",
+        "terms": "Ao se cadastrar, você concorda com nossos termos e política de privacidade."
+      },
+      "success": {
+        "title": "Cadastro Enviado!",
+        "message": "Recebemos seu cadastro com sucesso! Enviamos um link de confirmação para seu e-mail. Acesse para ativar sua conta.",
+        "button": "Entendido"
+      }
+    }
   }
 }

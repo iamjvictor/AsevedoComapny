@@ -54,6 +54,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Asevedo Company' }],
   creator: 'Asevedo Company',
+  icons: {
+    icon: '/AS.png',
+    shortcut: '/AS.png',
+    apple: '/AS.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
