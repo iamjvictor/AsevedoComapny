@@ -8,6 +8,7 @@
 import { Button, Card, CardContent, Container } from '@/components/ui';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 // Featured clients data
@@ -16,26 +17,28 @@ const featuredClients = [
     id: 'client-1',
     name: 'DataMetrics',
     logo: '/datametrics.png',
-    description: 'Plataforma gamificada para fisioterapeutas acompanharem e analisarem dados de jogadores de futebol.',
+    descriptionKey: 'datametrics',
     url: 'https://datametrics.app.br/futebol',
   },
   {
     id: 'client-2',
     name: 'AutoBooks',
     logo: '/autobooks.png',
-    description: 'SaaS de Automação de WhatsApp para agendamento e pagamentos online.',
+    descriptionKey: 'autobooks',
     url: 'https://autobooks.com.br',
   },
   {
     id: 'client-3',
     name: 'Bora Expandir',
     logo: '/bora-logo.png',
-    description: 'Plataforma de gestão para empresa de assessoria de vistos internacionais.',
+    descriptionKey: 'boraexpandir',
     url: 'https://boraexpandir.com.br/',
   },
 ];
 
 export function AboutLeadershipSection() {
+  const t = useTranslations('AboutLeadership');
+  const locale = useLocale();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -91,7 +94,7 @@ export function AboutLeadershipSection() {
             `}
           >
             <p className="text-cyan-400 font-medium mb-1 tracking-wide uppercase text-xs">
-              Liderança técnica
+              {t('badge')}
             </p>
             
             <h2 
@@ -99,20 +102,20 @@ export function AboutLeadershipSection() {
               style={{ fontFamily: 'var(--font-jetbrains), monospace' }}
             >
               <span className="text-white">
-                João Asevedo
+                {t('leaderName')}
               </span>
             </h2>
             
             <p className="text-slate-400 font-medium text-sm mb-4">
-              Founder & CTO — Asevedo Company
+              {t('role')} — Asevedo Company
             </p>
 
             <div className="space-y-2 text-slate-300 text-sm max-w-2xl">
               <p>
-                A Asevedo Company é liderada por João Asevedo, engenheiro de software com foco em automação, integrações e arquitetura de sistemas.
+                {t('intro')} {t('leaderName')}, {t('description')}
               </p>
               <p>
-                João atua diretamente na definição técnica dos projetos, garantindo qualidade, escalabilidade e clareza no processo — desde o diagnóstico até a entrega final.
+                {t('bodyText')}
               </p>
             </div>
           </div>
@@ -132,11 +135,11 @@ export function AboutLeadershipSection() {
               style={{ fontFamily: 'var(--font-jetbrains), monospace' }}
             >
               <span className="text-white">
-                Clientes e Projetos
+                {locale === 'en' ? 'Clients and Projects' : 'Clientes e Projetos'}
               </span>
             </h3>
             <p className="text-slate-400 text-sm">
-              Empresas que confiam na Asevedo Company.
+              {locale === 'en' ? 'Companies that trust Asevedo Company.' : 'Empresas que confiam na Asevedo Company.'}
             </p>
           </div>
 
@@ -173,9 +176,20 @@ export function AboutLeadershipSection() {
                       {client.name}
                     </h4>
 
-                    {/* Description */}
+                    {/* Description - hardcoded for now as these are specific client descriptions */}
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      {client.description}
+                      {client.descriptionKey === 'datametrics' && (locale === 'en' 
+                        ? 'Gamified platform for physiotherapists to track and analyze football player data.'
+                        : 'Plataforma gamificada para fisioterapeutas acompanharem e analisarem dados de jogadores de futebol.'
+                      )}
+                      {client.descriptionKey === 'autobooks' && (locale === 'en'
+                        ? 'WhatsApp automation SaaS for scheduling and online payments.'
+                        : 'SaaS de Automação de WhatsApp para agendamento e pagamentos online.'
+                      )}
+                      {client.descriptionKey === 'boraexpandir' && (locale === 'en'
+                        ? 'Management platform for international visa consulting company.'
+                        : 'Plataforma de gestão para empresa de assessoria de vistos internacionais.'
+                      )}
                     </p>
                   </CardContent>
                 </Card>
@@ -191,11 +205,11 @@ export function AboutLeadershipSection() {
             `}
           >
             <Button 
-              href="/projects" 
+              href={`/${locale}/projects`} 
               variant="outline"
               iconAfter={<ArrowRight size={18} />}
             >
-              Ver todos os projetos
+              {locale === 'en' ? 'View all projects' : 'Ver todos os projetos'}
             </Button>
           </div>
         </div>

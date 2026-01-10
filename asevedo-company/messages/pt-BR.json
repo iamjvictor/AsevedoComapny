@@ -1,0 +1,148 @@
+{
+  "Common": {
+    "learnMore": "Saiba mais",
+    "getQuote": "Fazer Orçamento",
+    "contact": "Contato",
+    "home": "Home",
+    "about": "Sobre",
+    "services": "Serviços",
+    "process": "Processo",
+    "cases": "Cases",
+    "backToHome": "Voltar para Home"
+  },
+  "Header": {
+    "getQuote": "Fazer Orçamento",
+    "clientArea": "Área do Cliente",
+    "becomePartner": "Torne-se um Parceiro"
+  },
+  "Hero": {
+    "typewriterText": "Automação e software sob medida.",
+    "highlightWord": "software",
+    "subtitle": "Projetamos e desenvolvemos sistemas, integrações e automações com foco em performance, escalabilidade e clareza operacional.",
+    "ctaButton": "Fazer Orçamento",
+    "clientLink": "Já sou cliente",
+    "scrollLabel": "Scroll para próxima seção"
+  },
+  "ProofStrip": {
+    "title": "Problemas reais. Soluções técnicas.",
+    "subtitle": "Substituímos processos manuais, sistemas desconectados e falta de visibilidade por automação, integração e controle.",
+    "items": {
+      "automation": {
+        "problem": "Trabalho manual repetitivo",
+        "solution": "Automação de fluxos e rotinas",
+        "description": "Automatizamos tarefas operacionais, notificações, rotinas e processos que hoje consomem tempo e geram erro humano."
+      },
+      "integration": {
+        "problem": "Ferramentas desconectadas",
+        "solution": "Integrações e APIs",
+        "description": "Conectamos sistemas, plataformas e serviços para que os dados fluam de forma automática, segura e confiável."
+      },
+      "dashboard": {
+        "problem": "Informação espalhada",
+        "solution": "Dashboards e sistemas internos",
+        "description": "Centralizamos dados em painéis claros e sistemas sob medida para tomada de decisão e controle operacional."
+      },
+      "software": {
+        "problem": "Ideia só no papel",
+        "solution": "Software sob medida do zero",
+        "description": "Arquitetamos e desenvolvemos sistemas completos, transformando sua ideia em um produto real, escalável e pronto para operar."
+      }
+    }
+  },
+  "Services": {
+    "title": "Nossos Serviços",
+    "subtitle": "Soluções técnicas de ponta para cada desafio do seu negócio",
+    "learnMore": "Saiba mais",
+    "items": {
+      "web": {
+        "title": "Plataformas e Sistemas Web",
+        "description": "Desenvolvemos sistemas web completos — de intranets a plataformas SaaS — com interfaces modernas e arquitetura preparada para escalar."
+      },
+      "mobile": {
+        "title": "Aplicações Mobile",
+        "description": "Apps nativos ou híbridos para iOS e Android, com foco em experiência do usuário e performance."
+      },
+      "chatbots": {
+        "title": "ChatBots Inteligentes",
+        "description": "Bots personalizados para agendamento, atendimento, pagamentos e integração com seus sistemas e plataformas."
+      },
+      "architecture": {
+        "title": "Arquitetura & Escalabilidade",
+        "description": "Projetamos infraestruturas que suportam crescimento exponencial sem comprometer performance ou segurança."
+      }
+    }
+  },
+  "Process": {
+    "title": "Nosso Processo",
+    "subtitle": "Metodologia estruturada para entregar resultados previsíveis",
+    "steps": {
+      "diagnosis": {
+        "title": "Diagnóstico",
+        "description": "Entendemos profundamente seu negócio, desafios e objetivos para definir a melhor estratégia técnica."
+      },
+      "planning": {
+        "title": "Planejamento",
+        "description": "Definimos escopo, cronograma, tecnologias e arquitetura com transparência total sobre entregas."
+      },
+      "development": {
+        "title": "Desenvolvimento",
+        "description": "Construímos com metodologia ágil, entregas incrementais e comunicação constante."
+      },
+      "validation": {
+        "title": "Validação",
+        "description": "Testes rigorosos de performance, segurança e usabilidade antes de cada release."
+      },
+      "delivery": {
+        "title": "Entrega & Suporte",
+        "description": "Deploy, documentação completa e suporte contínuo para evolução do produto."
+      }
+    }
+  },
+  "CTA": {
+    "title": "Pronto para",
+    "titleHighlight": "transformar sua ideia",
+    "titleEnd": "em realidade?",
+    "subtitle": "Conte-nos sobre seu projeto e receba uma proposta personalizada em até 48 horas.",
+    "form": {
+      "nameLabel": "Seu nome *",
+      "namePlaceholder": "Como podemos te chamar?",
+      "emailLabel": "E-mail *",
+      "emailPlaceholder": "seu@email.com",
+      "phoneLabel": "Telefone *",
+      "phonePlaceholder": "(00) 00000-0000",
+      "messageLabel": "Sobre o projeto *",
+      "messagePlaceholder": "Descreva brevemente seu projeto ou desafio...",
+      "submitButton": "Solicitar Proposta",
+      "submitting": "Enviando..."
+    },
+    "trustNote": "Seus dados estão seguros. Não compartilhamos informações com terceiros.",
+    "modal": {
+      "title": "Proposta Solicitada!",
+      "message": "Nossa equipe entrará em contato em breve para entender melhor seu projeto.",
+      "button": "Entendido"
+    }
+  },
+  "AboutLeadership": {
+    "badge": "Liderança Técnica",
+    "title": "A pessoa por trás da",
+    "titleHighlight": "Asevedo Company",
+    "intro": "A Asevedo Company é liderada por",
+    "leaderName": "João Asevedo",
+    "description": "engenheiro de software com atuação em sistemas web, aplicações mobile e arquitetura de sistemas.",
+    "bodyText": "João atua diretamente na definição da arquitetura, padrões técnicos e qualidade das entregas, garantindo que cada projeto siga boas práticas e esteja preparado para escalar.",
+    "points": {
+      "architecture": "Definição de arquitetura e padrões técnicos",
+      "quality": "Supervisão direta da qualidade de código",
+      "communication": "Comunicação próxima com stakeholders",
+      "mentoring": "Mentoria do time de desenvolvimento"
+    },
+    "role": "Fundador & Lead Engineer"
+  },
+  "Footer": {
+    "partner": "Torne-se um Parceiro"
+  },
+  "LanguageSwitcher": {
+    "portuguese": "PT",
+    "english": "EN"
+  }
+}

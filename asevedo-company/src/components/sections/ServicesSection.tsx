@@ -7,41 +7,40 @@
 
 import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Container } from '@/components/ui';
 import { ArrowRight, Code2, Globe, Server, Smartphone } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
-// Services data
-const services = [
+// Services data with keys
+const serviceKeys = [
   {
     id: 'web',
+    key: 'web',
     icon: Globe,
-    title: 'Plataformas e Sistemas Web',
-    description: 'Desenvolvemos sistemas web completos — de intranets a plataformas SaaS — com interfaces modernas e arquitetura preparada para escalar.',
     features: ['Next.js / React', 'APIs RESTful', 'Dashboards', 'Autenticação segura'],
   },
   {
     id: 'mobile',
+    key: 'mobile',
     icon: Smartphone,
-    title: 'Aplicações Mobile',
-    description: 'Apps nativos ou híbridos para iOS e Android, com foco em experiência do usuário e performance.',
     features: ['React Native', 'Flutter', 'iOS / Android', 'Push Notifications'],
   },
   {
     id: 'chatbots',
+    key: 'chatbots',
     icon: Server,
-    title: 'ChatBots Inteligentes',
-    description: 'Bots personalizados para agendamento, atendimento, pagamentos e integração com seus sistemas e plataformas.',
     features: ['Agendamento automático', 'Pagamentos', 'Integração CRM', 'WhatsApp / Telegram'],
   },
   {
     id: 'architecture',
+    key: 'architecture',
     icon: Code2,
-    title: 'Arquitetura & Escalabilidade',
-    description: 'Projetamos infraestruturas que suportam crescimento exponencial sem comprometer performance ou segurança.',
     features: ['Cloud AWS / GCP', 'Docker / K8s', 'CI/CD', 'Monitoramento'],
   },
 ];
 
 export function ServicesSection() {
+  const t = useTranslations('Services');
+  const locale = useLocale();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -72,17 +71,17 @@ export function ServicesSection() {
             style={{ fontFamily: 'var(--font-jetbrains), monospace' }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-cyan-100">
-              Nossos Serviços
+              {t('title')}
             </span>
           </h2>
           <p className="text-foreground-secondary text-lg max-w-3xl mx-auto">
-            Soluções técnicas de ponta para cada desafio do seu negócio
+            {t('subtitle')}
           </p>
         </div>
 
         {/* Grid 2x2 */}
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-          {services.map((service, index) => {
+          {serviceKeys.map((service, index) => {
             const Icon = service.icon;
             return (
               <div
@@ -103,19 +102,19 @@ export function ServicesSection() {
                       <Icon className="w-7 h-7 text-cyan-400" />
                     </div>
                     
-                    <CardTitle className="text-xl md:text-2xl">{service.title}</CardTitle>
-                    <CardDescription className="text-base">{service.description}</CardDescription>
+                    <CardTitle className="text-xl md:text-2xl">{t(`items.${service.key}.title`)}</CardTitle>
+                    <CardDescription className="text-base">{t(`items.${service.key}.description`)}</CardDescription>
                   </CardHeader>
                   
                   <CardContent>
                     {/* CTA */}
                     <Button 
-                      href={`/services#${service.id}`} 
+                      href={`/${locale}/services#${service.id}`} 
                       variant="ghost" 
                       className="p-0 h-auto"
                       iconAfter={<ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />}
                     >
-                      Saiba mais
+                      {t('learnMore')}
                     </Button>
                   </CardContent>
                 </Card>

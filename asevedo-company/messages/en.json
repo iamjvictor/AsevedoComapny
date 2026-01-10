@@ -1,0 +1,148 @@
+{
+  "Common": {
+    "learnMore": "Learn more",
+    "getQuote": "Get a Quote",
+    "contact": "Contact",
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "process": "Process",
+    "cases": "Cases",
+    "backToHome": "Back to Home"
+  },
+  "Header": {
+    "getQuote": "Get a Quote",
+    "clientArea": "Client Area",
+    "becomePartner": "Become a Partner"
+  },
+  "Hero": {
+    "typewriterText": "Custom automation and software.",
+    "highlightWord": "software",
+    "subtitle": "We design and develop systems, integrations, and automations focused on performance, scalability, and operational clarity.",
+    "ctaButton": "Get a Quote",
+    "clientLink": "I'm already a client",
+    "scrollLabel": "Scroll to next section"
+  },
+  "ProofStrip": {
+    "title": "Real problems. Technical solutions.",
+    "subtitle": "We replace manual processes, disconnected systems, and lack of visibility with automation, integration, and control.",
+    "items": {
+      "automation": {
+        "problem": "Repetitive manual work",
+        "solution": "Workflow and routine automation",
+        "description": "We automate operational tasks, notifications, routines, and processes that currently consume time and generate human error."
+      },
+      "integration": {
+        "problem": "Disconnected tools",
+        "solution": "Integrations and APIs",
+        "description": "We connect systems, platforms, and services so that data flows automatically, securely, and reliably."
+      },
+      "dashboard": {
+        "problem": "Scattered information",
+        "solution": "Dashboards and internal systems",
+        "description": "We centralize data in clear dashboards and custom systems for decision-making and operational control."
+      },
+      "software": {
+        "problem": "Idea on paper only",
+        "solution": "Custom software from scratch",
+        "description": "We architect and develop complete systems, transforming your idea into a real, scalable product ready to operate."
+      }
+    }
+  },
+  "Services": {
+    "title": "Our Services",
+    "subtitle": "Cutting-edge technical solutions for every business challenge",
+    "learnMore": "Learn more",
+    "items": {
+      "web": {
+        "title": "Web Platforms and Systems",
+        "description": "We develop complete web systems — from intranets to SaaS platforms — with modern interfaces and architecture ready to scale."
+      },
+      "mobile": {
+        "title": "Mobile Applications",
+        "description": "Native or hybrid apps for iOS and Android, focused on user experience and performance."
+      },
+      "chatbots": {
+        "title": "Intelligent ChatBots",
+        "description": "Custom bots for scheduling, customer service, payments, and integration with your systems and platforms."
+      },
+      "architecture": {
+        "title": "Architecture & Scalability",
+        "description": "We design infrastructures that support exponential growth without compromising performance or security."
+      }
+    }
+  },
+  "Process": {
+    "title": "Our Process",
+    "subtitle": "Structured methodology to deliver predictable results",
+    "steps": {
+      "diagnosis": {
+        "title": "Diagnosis",
+        "description": "We deeply understand your business, challenges, and objectives to define the best technical strategy."
+      },
+      "planning": {
+        "title": "Planning",
+        "description": "We define scope, timeline, technologies, and architecture with complete transparency about deliverables."
+      },
+      "development": {
+        "title": "Development",
+        "description": "We build with agile methodology, incremental deliveries, and constant communication."
+      },
+      "validation": {
+        "title": "Validation",
+        "description": "Rigorous testing of performance, security, and usability before each release."
+      },
+      "delivery": {
+        "title": "Delivery & Support",
+        "description": "Deployment, complete documentation, and ongoing support for product evolution."
+      }
+    }
+  },
+  "CTA": {
+    "title": "Ready to",
+    "titleHighlight": "turn your idea",
+    "titleEnd": "into reality?",
+    "subtitle": "Tell us about your project and receive a personalized proposal within 48 hours.",
+    "form": {
+      "nameLabel": "Your name *",
+      "namePlaceholder": "How can we call you?",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "your@email.com",
+      "phoneLabel": "Phone *",
+      "phonePlaceholder": "(00) 00000-0000",
+      "messageLabel": "About the project *",
+      "messagePlaceholder": "Briefly describe your project or challenge...",
+      "submitButton": "Request Proposal",
+      "submitting": "Sending..."
+    },
+    "trustNote": "Your data is secure. We do not share information with third parties.",
+    "modal": {
+      "title": "Proposal Requested!",
+      "message": "Our team will contact you soon to better understand your project.",
+      "button": "Understood"
+    }
+  },
+  "AboutLeadership": {
+    "badge": "Technical Leadership",
+    "title": "The person behind",
+    "titleHighlight": "Asevedo Company",
+    "intro": "Asevedo Company is led by",
+    "leaderName": "João Asevedo",
+    "description": "software engineer working with web systems, mobile applications, and system architecture.",
+    "bodyText": "João works directly on architecture definition, technical standards, and delivery quality, ensuring every project follows best practices and is ready to scale.",
+    "points": {
+      "architecture": "Architecture and technical standards definition",
+      "quality": "Direct code quality supervision",
+      "communication": "Close stakeholder communication",
+      "mentoring": "Development team mentoring"
+    },
+    "role": "Founder & Lead Engineer"
+  },
+  "Footer": {
+    "partner": "Become a Partner"
+  },
+  "LanguageSwitcher": {
+    "portuguese": "PT",
+    "english": "EN"
+  }
+}

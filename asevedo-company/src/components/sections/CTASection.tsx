@@ -8,9 +8,12 @@
 
 import { Button, Section } from '@/components/ui';
 import { CheckCircle, Send, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 export function CTASection() {
+  const t = useTranslations('CTA');
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -63,10 +66,10 @@ export function CTASection() {
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Pronto para <span className="text-gradient">transformar sua ideia</span> em realidade?
+              {t('title')} <span className="text-gradient">{t('titleHighlight')}</span> {t('titleEnd')}
             </h2>
             <p className="text-foreground-secondary text-lg max-w-2xl mx-auto">
-              Conte-nos sobre seu projeto e receba uma proposta personalizada em até 48 horas.
+              {t('subtitle')}
             </p>
           </div>
           
@@ -79,7 +82,7 @@ export function CTASection() {
                   htmlFor="name" 
                   className="block text-sm font-medium text-foreground mb-2"
                 >
-                  Seu nome *
+                  {t('form.nameLabel')}
                 </label>
                 <input
                   type="text"
@@ -89,7 +92,7 @@ export function CTASection() {
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-background-secondary border border-card-border rounded-lg text-foreground placeholder:text-foreground-muted focus:outline-none focus:border-primary transition-colors"
-                  placeholder="Como podemos te chamar?"
+                  placeholder={t('form.namePlaceholder')}
                 />
               </div>
 
@@ -100,7 +103,7 @@ export function CTASection() {
                     htmlFor="email" 
                     className="block text-sm font-medium text-foreground mb-2"
                   >
-                    E-mail *
+                    {t('form.emailLabel')}
                   </label>
                   <input
                     type="email"
@@ -110,7 +113,7 @@ export function CTASection() {
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-background-secondary border border-card-border rounded-lg text-foreground placeholder:text-foreground-muted focus:outline-none focus:border-primary transition-colors"
-                    placeholder="seu@email.com"
+                    placeholder={t('form.emailPlaceholder')}
                   />
                 </div>
                 
@@ -120,7 +123,7 @@ export function CTASection() {
                     htmlFor="phone" 
                     className="block text-sm font-medium text-foreground mb-2"
                   >
-                    Telefone *
+                    {t('form.phoneLabel')}
                   </label>
                   <input
                     type="tel"
@@ -130,7 +133,7 @@ export function CTASection() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-background-secondary border border-card-border rounded-lg text-foreground placeholder:text-foreground-muted focus:outline-none focus:border-primary transition-colors"
-                    placeholder="(00) 00000-0000"
+                    placeholder={t('form.phonePlaceholder')}
                   />
                 </div>
               </div>
@@ -141,7 +144,7 @@ export function CTASection() {
                   htmlFor="message" 
                   className="block text-sm font-medium text-foreground mb-2"
                 >
-                  Sobre o projeto *
+                  {t('form.messageLabel')}
                 </label>
                 <textarea
                   id="message"
@@ -151,7 +154,7 @@ export function CTASection() {
                   value={formData.message}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-background-secondary border border-card-border rounded-lg text-foreground placeholder:text-foreground-muted focus:outline-none focus:border-primary transition-colors resize-none"
-                  placeholder="Descreva brevemente seu projeto ou desafio..."
+                  placeholder={t('form.messagePlaceholder')}
                 />
               </div>
               
@@ -164,7 +167,7 @@ export function CTASection() {
                   className="w-full sm:w-auto"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Enviando...' : 'Solicitar Proposta'}
+                  {isSubmitting ? t('form.submitting') : t('form.submitButton')}
                 </Button>
               </div>
             </form>
@@ -172,7 +175,7 @@ export function CTASection() {
           
           {/* Trust note */}
           <p className="text-center text-foreground-muted text-sm mt-6">
-            Seus dados estão seguros. Não compartilhamos informações com terceiros.
+            {t('trustNote')}
           </p>
         </div>
       </Section>
@@ -205,15 +208,15 @@ export function CTASection() {
 
             {/* Conteúdo */}
             <h3 className="text-2xl font-bold text-foreground mb-3">
-              Proposta Solicitada!
+              {t('modal.title')}
             </h3>
             <p className="text-foreground-secondary mb-6">
-              Nossa equipe entrará em contato em breve para entender melhor seu projeto.
+              {t('modal.message')}
             </p>
 
             {/* Botão */}
             <Button onClick={() => setShowModal(false)} className="w-full">
-              Entendido
+              {t('modal.button')}
             </Button>
           </div>
         </div>
@@ -221,4 +224,3 @@ export function CTASection() {
     </>
   );
 }
-

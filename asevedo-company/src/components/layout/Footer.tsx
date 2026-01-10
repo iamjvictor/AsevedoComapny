@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Footer Component
  * Site footer with logo, CNPJ, contact info and partner link
@@ -7,8 +9,11 @@ import { Container } from '@/components/ui/Container';
 import { Instagram, Linkedin, Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 
 export function Footer() {
+  const t = useTranslations('Footer');
+  const locale = useLocale();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -17,7 +22,7 @@ export function Footer() {
         {/* Main Footer Content */}
         <div className="py-12 flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
           {/* Logo - Esquerda */}
-          <Link href="/" className="shrink-0">
+          <Link href={`/${locale}`} className="shrink-0">
             <Image
               src="/LogoBranca.png"
               alt="Asevedo Company"
@@ -31,10 +36,10 @@ export function Footer() {
           <div className="flex flex-col items-center md:items-end text-center md:text-right gap-4">
             {/* Torne-se Parceiro - No topo */}
             <Link
-              href="/parceiro"
+              href={`/${locale}/parceiro`}
               className="text-primary hover:text-primary/80 font-medium transition-colors text-base"
             >
-              Torne-se um Parceiro →
+              {t('partner')} →
             </Link>
 
             {/* CNPJ */}
@@ -86,11 +91,10 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="py-4 border-t border-card-border/30 text-center">
           <p className="text-foreground-muted text-xs">
-            © {currentYear} Asevedo Company. Todos os direitos reservados.
+            © {currentYear} Asevedo Company. {locale === 'en' ? 'All rights reserved.' : 'Todos os direitos reservados.'}
           </p>
         </div>
       </Container>
     </footer>
   );
 }
-

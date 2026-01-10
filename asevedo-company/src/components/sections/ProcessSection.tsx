@@ -7,43 +7,20 @@
 
 import { Container } from '@/components/ui';
 import { CheckCircle, ClipboardList, Code2, HeadphonesIcon, Search, Settings } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
-// Process steps data
-const processSteps = [
-  {
-    number: '01',
-    icon: Search,
-    title: 'Diagnóstico',
-    description: 'Entendemos profundamente seu negócio, desafios e objetivos para definir a melhor estratégia técnica.',
-  },
-  {
-    number: '02',
-    icon: ClipboardList,
-    title: 'Planejamento',
-    description: 'Definimos escopo, cronograma, tecnologias e arquitetura com transparência total sobre entregas.',
-  },
-  {
-    number: '03',
-    icon: Code2,
-    title: 'Desenvolvimento',
-    description: 'Construímos com metodologia ágil, entregas incrementais e comunicação constante.',
-  },
-  {
-    number: '04',
-    icon: Settings,
-    title: 'Validação',
-    description: 'Testes rigorosos de performance, segurança e usabilidade antes de cada release.',
-  },
-  {
-    number: '05',
-    icon: HeadphonesIcon,
-    title: 'Entrega & Suporte',
-    description: 'Deploy, documentação completa e suporte contínuo para evolução do produto.',
-  },
+// Process steps data with keys
+const processStepKeys = [
+  { number: '01', key: 'diagnosis', icon: Search },
+  { number: '02', key: 'planning', icon: ClipboardList },
+  { number: '03', key: 'development', icon: Code2 },
+  { number: '04', key: 'validation', icon: Settings },
+  { number: '05', key: 'delivery', icon: HeadphonesIcon },
 ];
 
 export function ProcessSection() {
+  const t = useTranslations('Process');
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -74,11 +51,11 @@ export function ProcessSection() {
             style={{ fontFamily: 'var(--font-jetbrains), monospace' }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-cyan-100">
-              Nosso Processo
+              {t('title')}
             </span>
           </h2>
           <p className="text-foreground-secondary text-lg max-w-3xl mx-auto">
-            Metodologia estruturada para entregar resultados previsíveis
+            {t('subtitle')}
           </p>
         </div>
 
@@ -88,7 +65,7 @@ export function ProcessSection() {
           
           {/* Steps */}
           <div className="grid md:grid-cols-5 gap-8 lg:gap-4">
-            {processSteps.map((step, index) => {
+            {processStepKeys.map((step, index) => {
               const Icon = step.icon;
               return (
                 <div
@@ -120,8 +97,8 @@ export function ProcessSection() {
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{step.description}</p>
+                  <h3 className="text-lg font-semibold text-white mb-2">{t(`steps.${step.key}.title`)}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{t(`steps.${step.key}.description`)}</p>
                   
                   {/* Checkmark for completed visual */}
                   <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">

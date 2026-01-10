@@ -3,14 +3,21 @@
 /**
  * Hero Section Component
  * Simple centered phrase with animated background and typewriter effect
+ * Uses fluid design for proportional sizing across all screens
  */
 
 import { DottedSurface } from '@/components/effects';
 import { ChevronDown } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 export function HeroSection() {
-  const fullText = "Automação e software sob medida.";
+  const t = useTranslations('Hero');
+  const locale = useLocale();
+  
+  const fullText = t('typewriterText');
+  const highlightWord = t('highlightWord');
+  
   const [displayedText, setDisplayedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
@@ -24,15 +31,13 @@ export function HeroSection() {
         currentIndex++;
       } else {
         clearInterval(typingInterval);
-        // Adiciona um pequeno delay antes de mostrar o subtítulo e botão
         setTimeout(() => setIsTypingComplete(true), 300);
       }
-    }, 50); // Velocidade de digitação
+    }, 50);
 
     return () => clearInterval(typingInterval);
-  }, []);
+  }, [fullText]);
 
-  // Cursor piscando
   useEffect(() => {
     const cursorInterval = setInterval(() => {
       setShowCursor(prev => !prev);
@@ -42,18 +47,13 @@ export function HeroSection() {
   }, []);
 
   const scrollToNextSection = () => {
-    // Lista de IDs das seções na ordem
     const sectionIds = ['hero', 'proof', 'services', 'process', 'about', 'cta'];
-    
-    // Encontra todas as seções
     const sections = sectionIds
       .map(id => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
     
-    // Posição atual do scroll
-    const scrollPosition = window.scrollY + 100; // +100 para margem
+    const scrollPosition = window.scrollY + 100;
     
-    // Encontra a próxima seção que está abaixo da posição atual
     for (const section of sections) {
       if (section.offsetTop > scrollPosition) {
         section.scrollIntoView({ behavior: 'smooth' });
@@ -61,7 +61,6 @@ export function HeroSection() {
       }
     }
     
-    // Se não encontrar, rola uma tela
     window.scrollBy({
       top: window.innerHeight,
       behavior: 'smooth'
@@ -72,13 +71,15 @@ export function HeroSection() {
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Esfera/Lua iluminada no topo */}
       <div 
-        className="absolute -top-[400px] left-1/2 -translate-x-1/2 w-[700px] h-[700px] pointer-events-none"
+        className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
         aria-hidden="true"
         style={{
+          top: 'clamp(-300px, -25vw, -400px)',
+          width: 'clamp(400px, 50vw, 700px)',
+          height: 'clamp(400px, 50vw, 700px)',
           animation: 'float 8s ease-in-out infinite',
         }}
       >
-        {/* Esfera principal - escura */}
         <div 
           className="absolute inset-0 rounded-full"
           style={{
@@ -91,38 +92,48 @@ export function HeroSection() {
           }}
         />
         
-        {/* Glow inferior - efeito de luz branca */}
         <div 
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[200px] rounded-full blur-3xl"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] rounded-full blur-3xl"
           style={{
+            height: 'clamp(120px, 15vw, 200px)',
             background: 'radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.15) 40%, transparent 70%)',
           }}
         />
       </div>
       
-      {/* Animated Background */}
       <DottedSurface className="opacity-50" />
       
-      {/* Gradient Overlay - suave indo para um ponto mais claro */}
       <div 
         className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background/10 pointer-events-none"
         aria-hidden="true"
       />
       
-      {/* Centered Phrase with Typewriter Effect */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-bold leading-tight tracking-tight min-h-[1.2em] mb-6" style={{ fontFamily: 'var(--font-jetbrains), monospace' }}>
-          {/* Renderização do texto com destaque em "software" */}
-          {displayedText.includes('software') ? (
+      {/* Centered Content */}
+      <div 
+        className="relative z-10 text-center mx-auto"
+        style={{
+          padding: '0 var(--space-4)',
+          maxWidth: 'min(90vw, 1200px)',
+        }}
+      >
+        <h1 
+          className="font-bold leading-tight tracking-tight min-h-[1.2em]"
+          style={{ 
+            fontFamily: 'var(--font-jetbrains), monospace',
+            fontSize: 'var(--text-5xl)',
+            marginBottom: 'var(--space-4)',
+          }}
+        >
+          {displayedText.includes(highlightWord) ? (
             <>
               <span className="text-white">
-                {displayedText.split('software')[0]}
+                {displayedText.split(highlightWord)[0]}
               </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400">
-                software
+                {highlightWord}
               </span>
               <span className="text-white">
-                {displayedText.split('software')[1] || ''}
+                {displayedText.split(highlightWord)[1] || ''}
               </span>
             </>
           ) : (
@@ -138,22 +149,27 @@ export function HeroSection() {
           />
         </h1>
         
-        {/* Subtítulo - aparece após digitação */}
         <p 
-          className={`text-lg md:text-xl lg:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-10 transition-all duration-700 ease-out ${
+          className={`text-slate-400 max-w-3xl mx-auto leading-relaxed transition-all duration-700 ease-out ${
             isTypingComplete ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
+          style={{
+            fontSize: 'var(--text-lg)',
+            marginBottom: 'var(--space-8)',
+          }}
         >
-          Projetamos e desenvolvemos sistemas, integrações e automações com foco em performance, escalabilidade e clareza operacional.
+          {t('subtitle')}
         </p>
-        {/* Botões - aparecem após digitação */}
+
         <div 
-          className={`flex items-center justify-center gap-6 flex-wrap transition-all duration-700 ease-out ${
+          className={`flex items-center justify-center flex-wrap transition-all duration-700 ease-out ${
             isTypingComplete ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
-          style={{ transitionDelay: isTypingComplete ? '200ms' : '0ms' }}
+          style={{ 
+            gap: 'var(--space-4)',
+            transitionDelay: isTypingComplete ? '200ms' : '0ms',
+          }}
         >
-          {/* Botão Principal - Fazer Orçamento */}
           <button
             onClick={() => {
               const ctaSection = document.getElementById('cta');
@@ -161,29 +177,43 @@ export function HeroSection() {
                 ctaSection.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="inline-flex items-center justify-center px-8 py-3.5 bg-slate-800/80 text-white font-medium rounded-full border border-slate-600/50 hover:bg-slate-700/80 hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/20 cursor-pointer hover:scale-[1.02] transition-all duration-300 text-base backdrop-blur-sm"
+            className="inline-flex items-center justify-center bg-slate-800/80 text-white font-medium rounded-full border border-slate-600/50 hover:bg-slate-700/80 hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/20 cursor-pointer hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm"
+            style={{
+              fontSize: 'var(--text-base)',
+              padding: 'var(--space-3) var(--space-6)',
+            }}
           >
-            Fazer Orçamento
+            {t('ctaButton')}
           </button>
 
-          {/* Link Secundário - Já sou cliente */}
           <a
-            href="/cliente"
-            className="text-slate-400 hover:text-white transition-colors duration-300 text-base font-medium flex items-center gap-2 group"
+            href={`/${locale}/cliente`}
+            className="text-slate-400 hover:text-white transition-colors duration-300 font-medium flex items-center group"
+            style={{
+              fontSize: 'var(--text-base)',
+              gap: 'var(--space-2)',
+            }}
           >
-            Já sou cliente
+            {t('clientLink')}
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
           </a>
         </div>
       </div>
 
-      {/* Scroll Down Arrow - Fixed on screen */}
+      {/* Scroll Down Arrow */}
       <button
         onClick={scrollToNextSection}
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 p-3 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 animate-pulse cursor-pointer"
-        aria-label="Scroll para próxima seção"
+        className="fixed left-1/2 -translate-x-1/2 z-50 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 animate-pulse cursor-pointer"
+        style={{
+          bottom: 'var(--space-6)',
+          padding: 'var(--space-3)',
+        }}
+        aria-label={t('scrollLabel')}
       >
-        <ChevronDown className="w-6 h-6 text-white/80" />
+        <ChevronDown 
+          className="text-white/80" 
+          style={{ width: 'var(--icon-xl)', height: 'var(--icon-xl)' }}
+        />
       </button>
     </section>
   );
