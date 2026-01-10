@@ -52,10 +52,10 @@ export function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
-      <div className="w-full px-6 md:px-12 lg:px-16">
-        <nav className="flex items-center justify-between">
-          {/* Logo Branca - Maior */}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent pointer-events-none">
+      <div className="w-full px-4 py-2 md:px-12 lg:px-16">
+        <nav className="flex items-center justify-between pointer-events-auto">
+          {/* Logo Branca - Responsiva */}
           <Link
             href="/"
             className="hover:opacity-80 transition-opacity"
@@ -65,7 +65,7 @@ export function Header() {
               alt="Asevedo Company"
               width={680}
               height={192}
-              className="h-40 md:h-48 w-auto"
+              className="h-20 sm:h-28 md:h-40 lg:h-48 w-auto"
               priority
             />
           </Link>
