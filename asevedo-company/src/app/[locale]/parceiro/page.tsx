@@ -3,6 +3,7 @@
 /**
  * Página do Programa de Parceiros
  * Landing page completa para conversão de parceiros
+ * Com suporte internacional (País > Estado > Cidade)
  */
 
 import { DottedSurface } from '@/components/effects';
@@ -10,12 +11,15 @@ import { Card, Section } from '@/components/ui';
 import { 
   ArrowRight,
   Briefcase,
-  CheckCircle, 
+  CheckCircle,
   ChevronDown,
-  DollarSign, 
+  Clock,
+  DollarSign,
   Eye,
-  Gift, 
-  Handshake, 
+  EyeOff,
+  FileText,
+  Gift,
+  Handshake,
   History,
   MessageCircle,
   Percent,
@@ -30,16 +34,22 @@ import {
   Zap
 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { Country, State, City, ICountry, IState, ICity } from 'country-state-city';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import { supabase } from '@/components/clients/Supabase';
 
 interface FormData {
   name: string;
   email: string;
+  password: string;
   phone: string;
-  city: string;
+  country: string;
   state: string;
-  cpf: string;
-  pix: string;
+  city: string;
+  taxId: string;  // CPF/Tax ID (internacional)
+  paymentKey: string;  // PIX/PayPal/etc
 }
 
 export default function ParceiroPage() {
@@ -48,16 +58,57 @@ export default function ParceiroPage() {
   
   const [showModal, setShowModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
+    password: '',
     phone: '',
-    city: '',
+    country: 'BR', // Brasil como padrão
     state: '',
-    cpf: '',
-    pix: '',
+    city: '',
+    taxId: '',
+    paymentKey: '',
   });
+
+  // Country-State-City data
+  const countries = useMemo(() => Country.getAllCountries(), []);
+  const [states, setStates] = useState<IState[]>(() => 
+    // Initialize with Brazilian states since BR is the default
+    State.getStatesOfCountry('BR')
+  );
+  const [cities, setCities] = useState<ICity[]>([]);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  // Update states when country changes
+  useEffect(() => {
+    if (formData.country) {
+      const countryStates = State.getStatesOfCountry(formData.country);
+      setStates(countryStates);
+      if (!isInitialLoad) {
+        setFormData(prev => ({ ...prev, state: '', city: '' }));
+        setCities([]);
+      }
+      setIsInitialLoad(false);
+    } else {
+      setStates([]);
+      setCities([]);
+    }
+  }, [formData.country]);
+
+  // Update cities when state changes
+  useEffect(() => {
+    if (formData.country && formData.state) {
+      const stateCities = City.getCitiesOfState(formData.country, formData.state);
+      setCities(stateCities);
+      // Reset city when state changes
+      setFormData(prev => ({ ...prev, city: '' }));
+    } else {
+      setCities([]);
+    }
+  }, [formData.state]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -68,36 +119,149 @@ export default function ParceiroPage() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // TODO: Integrar com Supabase Auth (magic link) e salvar dados do parceiro
-    console.log('Partner registration:', formData);
-    
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  console.log('=== INÍCIO DO CADASTRO ===');
+  console.log('Form data:', formData);
+
+  try {
+    // 1) Validação simples
+    if (formData.password.length < 6) {
+      alert('A senha deve ter pelo menos 6 caracteres.');
+      return;
+    }
+
+    // 2) Normaliza nomes
+    const countryName = getCountryName(formData.country);
+    const stateName =
+      states.find((s) => s.isoCode === formData.state)?.name || formData.state;
+
+    console.log('Country:', countryName, '| State:', stateName);
+    console.log('City:', formData.city);
+    console.log('Tax ID:', formData.taxId);
+    console.log('Phone:', formData.phone);
+    console.log('Email:', formData.email);
+    console.log('Name:', formData.name);
+    console.log('Password:', formData.password);
+
+    // 3) Signup com metadata
+    console.log('Chamando supabase.auth.signUp...');
+    const { data, error } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        data: {
+          name: formData.name,
+          phone: formData.phone,
+          document: formData.taxId,
+          country: countryName,
+          state: stateName,
+          city: formData.city,
+        },
+      },
+    });
+
+    console.log('signUp response - data:', data);
+    console.log('signUp response - error:', error);
+
+    if (error) {
+      console.error('❌ Supabase signup error:', error);
+      alert(error.message);
+      return;
+    }
+
+    const userId = data.user?.id;
+    console.log('User ID:', userId);
+    console.log('User metadata:', data.user?.user_metadata);
+
+    if (!userId) {
+      console.log('❌ No user returned from signUp');
+      alert('Não foi possível concluir o cadastro agora. Tente novamente.');
+      return;
+    }
+
+    // 4) Checa sessão
+    const { data: sessionData } = await supabase.auth.getSession();
+    const hasSession = !!sessionData.session;
+    console.log('Has session:', hasSession);
+    console.log('Session data:', sessionData);
+
+    // 5) Se tiver sessão, tenta atualizar/inserir o profile
+    if (hasSession) {
+      console.log('✅ Sessão ativa - tentando inserir/atualizar profile...');
+      
+      const profilePayload = {
+        id: userId,
+        name: formData.name,
+        phone: formData.phone,
+        document: formData.taxId,
+      };
+      console.log('Profile payload:', profilePayload);
+
+      // Primeiro tenta INSERT (upsert)
+      const { data: upsertData, error: upsertError } = await supabase
+        .from('profiles')
+        .upsert(profilePayload, { onConflict: 'id' })
+        .select();
+
+      console.log('Upsert result - data:', upsertData);
+      console.log('Upsert result - error:', upsertError);
+
+      if (upsertError) {
+        console.error('❌ Erro ao salvar profile:', upsertError);
+        alert(`Erro ao salvar perfil: ${upsertError.message}`);
+      } else {
+        console.log('✅ Profile salvo com sucesso!');
+      }
+    } else {
+      console.log('⚠️ Sem sessão - o trigger deve criar o profile');
+      console.log('User metadata que será usado pelo trigger:', data.user?.user_metadata);
+    }
+
+    // 6) UI pós-cadastro
+    console.log('=== CADASTRO CONCLUÍDO ===');
     setShowModal(false);
+    setShowTermsModal(true);
+  } catch (err) {
+    console.error('❌ Unexpected error:', err);
+    alert('Erro inesperado. Tente novamente.');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+  // Handle terms acceptance
+  const handleAcceptTerms = () => {
+    setShowTermsModal(false);
     setShowSuccessModal(true);
     
+    // Reset form
     setFormData({
       name: '',
       email: '',
+      password: '',
       phone: '',
-      city: '',
+      country: 'BR',
       state: '',
-      cpf: '',
-      pix: '',
+      city: '',
+      taxId: '',
+      paymentKey: '',
     });
+    
+    // Redirect to dashboard after 2 seconds
+    setTimeout(() => {
+      window.location.href = `/${locale}/plataforma-parceiro/dashboard`;
+    }, 2000);
   };
 
-  // Lista de estados brasileiros
-  const brazilianStates = [
-    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
-    'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
-    'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
-  ];
+  // Get country name by code
+  const getCountryName = (code: string) => {
+    const country = countries.find(c => c.isoCode === code);
+    return country?.name || code;
+  };
 
   // Seção 2 - Para quem é o programa
   const targetAudience = [
@@ -699,45 +863,77 @@ export default function ParceiroPage() {
                 
                 <div>
                   <label 
-                    htmlFor="phone" 
+                    htmlFor="password" 
                     className="block text-sm font-medium text-white mb-2"
                   >
-                    {t('modal.form.phone')}
+                    {t('modal.form.password')}
                   </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500 transition-colors"
-                    placeholder={t('modal.form.phonePlaceholder')}
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id="password"
+                      name="password"
+                      required
+                      minLength={6}
+                      value={formData.password}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500 transition-colors pr-12"
+                      placeholder={t('modal.form.passwordPlaceholder')}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                    >
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* Localização */}
+              <div>
+                <label 
+                  htmlFor="phone" 
+                  className="block text-sm font-medium text-white mb-2"
+                >
+                  {t('modal.form.phone')}
+                </label>
+                <PhoneInput
+                  defaultCountry="BR"
+                  value={formData.phone}
+                  onChange={(value) => setFormData(prev => ({ ...prev, phone: value || '' }))}
+                  className="phone-input-dark w-full"
+                  placeholder={t('modal.form.phonePlaceholder')}
+                />
+              </div>
+
+              {/* Localização - País */}
+              <div>
+                <label 
+                  htmlFor="country" 
+                  className="block text-sm font-medium text-white mb-2"
+                >
+                  {t('modal.form.country')}
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  required
+                  value={formData.country}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-violet-500 transition-colors"
+                >
+                  <option value="" className="text-slate-500">{t('modal.form.countryPlaceholder')}</option>
+                  {countries.map((country) => (
+                    <option key={country.isoCode} value={country.isoCode}>
+                      {country.flag} {country.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Estado e Cidade */}
               <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label 
-                    htmlFor="city" 
-                    className="block text-sm font-medium text-white mb-2"
-                  >
-                    {t('modal.form.city')}
-                  </label>
-                  <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    required
-                    value={formData.city}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500 transition-colors"
-                    placeholder={t('modal.form.cityPlaceholder')}
-                  />
-                </div>
-                
                 <div>
                   <label 
                     htmlFor="state" 
@@ -751,55 +947,93 @@ export default function ParceiroPage() {
                     required
                     value={formData.state}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-violet-500 transition-colors"
+                    disabled={!formData.country || states.length === 0}
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-violet-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <option value="" className="text-slate-500">{t('modal.form.statePlaceholder')}</option>
-                    {brazilianStates.map((state) => (
-                      <option key={state} value={state}>{state}</option>
+                    {states.map((state) => (
+                      <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
                     ))}
                   </select>
+                </div>
+                
+                <div>
+                  <label 
+                    htmlFor="city" 
+                    className="block text-sm font-medium text-white mb-2"
+                  >
+                    {t('modal.form.city')}
+                  </label>
+                  {cities.length > 0 ? (
+                    <select
+                      id="city"
+                      name="city"
+                      required
+                      value={formData.city}
+                      onChange={handleChange}
+                      disabled={!formData.state}
+                      className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-violet-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <option value="" className="text-slate-500">{t('modal.form.cityPlaceholder')}</option>
+                      {cities.map((city) => (
+                        <option key={city.name} value={city.name}>{city.name}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      required
+                      value={formData.city}
+                      onChange={handleChange}
+                      disabled={!formData.state && states.length > 0}
+                      className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      placeholder={t('modal.form.cityPlaceholder')}
+                    />
+                  )}
                 </div>
               </div>
 
               {/* Dados para pagamento */}
               <div className="pt-2">
                 <p className="text-xs text-slate-500 mb-3">{t('modal.form.paymentInfo')}</p>
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-4 items-end">
                   <div>
                     <label 
-                      htmlFor="cpf" 
-                      className="block text-sm font-medium text-white mb-2"
+                      htmlFor="taxId" 
+                      className="block text-sm font-medium text-white mb-2 min-h-[40px] flex items-end"
                     >
-                      {t('modal.form.cpf')}
+                      {t('modal.form.taxId')}
                     </label>
                     <input
                       type="text"
-                      id="cpf"
-                      name="cpf"
+                      id="taxId"
+                      name="taxId"
                       required
-                      value={formData.cpf}
+                      value={formData.taxId}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500 transition-colors"
-                      placeholder={t('modal.form.cpfPlaceholder')}
+                      placeholder={t('modal.form.taxIdPlaceholder')}
                     />
                   </div>
                   
                   <div>
                     <label 
-                      htmlFor="pix" 
-                      className="block text-sm font-medium text-white mb-2"
+                      htmlFor="paymentKey" 
+                      className="block text-sm font-medium text-white mb-2 min-h-[40px] flex items-end"
                     >
-                      {t('modal.form.pix')}
+                      {t('modal.form.paymentKey')}
                     </label>
                     <input
                       type="text"
-                      id="pix"
-                      name="pix"
+                      id="paymentKey"
+                      name="paymentKey"
                       required
-                      value={formData.pix}
+                      value={formData.paymentKey}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500 transition-colors"
-                      placeholder={t('modal.form.pixPlaceholder')}
+                      placeholder={t('modal.form.paymentKeyPlaceholder')}
                     />
                   </div>
                 </div>
@@ -825,6 +1059,85 @@ export default function ParceiroPage() {
                 {t('modal.form.terms')}
               </p>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ===== MODAL DE TERMOS ===== */}
+      {showTermsModal && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
+        >
+          <div 
+            className="relative bg-slate-900 border border-slate-700/50 rounded-2xl p-8 max-w-2xl w-full shadow-2xl max-h-[90vh] overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-violet-500/20 flex items-center justify-center">
+                <FileText size={24} className="text-violet-400" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white">
+                  {t('modal.terms.title')}
+                </h3>
+                <p className="text-slate-400 text-sm">
+                  {t('modal.terms.subtitle')}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto bg-slate-800/50 rounded-lg p-4 mb-6 text-slate-300 text-sm space-y-4 max-h-[40vh]">
+              <h4 className="font-semibold text-white">1. Aceite dos Termos</h4>
+              <p>
+                Ao se cadastrar como Parceiro da Asevedo Company, você concorda com os termos e condições aqui estabelecidos.
+              </p>
+              
+              <h4 className="font-semibold text-white">2. Comissões</h4>
+              <p>
+                As comissões serão calculadas com base no valor do contrato fechado e estarão disponíveis para saque após a confirmação do pagamento pelo cliente.
+              </p>
+              
+              <h4 className="font-semibold text-white">3. Confidencialidade</h4>
+              <p>
+                Você concorda em manter sigilo sobre todas as informações confidenciais da empresa e de seus clientes.
+              </p>
+              
+              <h4 className="font-semibold text-white">4. Uso da Marca</h4>
+              <p>
+                O uso da marca Asevedo Company deve ser autorizado e seguir as diretrizes fornecidas pela empresa.
+              </p>
+              
+              <h4 className="font-semibold text-white">5. Rescisão</h4>
+              <p>
+                Qualquer parte pode rescindir esta parceria a qualquer momento, mediante aviso prévio de 30 dias.
+              </p>
+            </div>
+
+            <div className="flex items-start gap-3 mb-6">
+              <input
+                type="checkbox"
+                id="acceptTerms"
+                className="mt-1 w-4 h-4 rounded border-slate-600 bg-slate-800 text-violet-500 focus:ring-violet-500"
+              />
+              <label htmlFor="acceptTerms" className="text-slate-300 text-sm">
+                {t('modal.terms.accept')}
+              </label>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowTermsModal(false)}
+                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg transition-colors border border-slate-700"
+              >
+                {t('modal.terms.decline')}
+              </button>
+              <button
+                onClick={handleAcceptTerms}
+                className="flex-1 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors"
+              >
+                {t('modal.terms.accept_button')}
+              </button>
+            </div>
           </div>
         </div>
       )}

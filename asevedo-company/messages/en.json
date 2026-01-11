@@ -10,6 +10,33 @@
     "cases": "Cases",
     "backToHome": "Back to Home"
   },
+  "Login": {
+    "title": "Access your account",
+    "subtitle": "Enter your email to receive the access link",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "submitButton": "Send access link",
+    "submitting": "Sending...",
+    "notRegistered": "Not a partner yet?",
+    "registerHere": "Register here",
+    "backToSite": "Back to website",
+    "error": "Error sending link. Please try again.",
+    "brandTitle": "Access the platform",
+    "brandHighlight": "Asevedo Company",
+    "brandSubtitle": "Fast and secure login via email. No password to remember.",
+    "features": {
+      "secure": "Secure access via link",
+      "noPassword": "No password to remember",
+      "instant": "Link expires in 1 hour",
+      "multiDevice": "Access from any device"
+    },
+    "success": {
+      "title": "Link sent!",
+      "message": "We sent an access link to",
+      "checkInbox": "Check your inbox and spam.",
+      "useAnother": "Use another email"
+    }
+  },
   "Header": {
     "getQuote": "Get a Quote",
     "clientArea": "Client Area",
@@ -243,26 +270,97 @@
         "namePlaceholder": "Your full name",
         "email": "Email *",
         "emailPlaceholder": "your@email.com",
+        "password": "Password *",
+        "passwordPlaceholder": "Minimum 6 characters",
         "phone": "Phone / WhatsApp *",
-        "phonePlaceholder": "(00) 00000-0000",
+        "phonePlaceholder": "(000) 000-0000",
+        "country": "Country *",
+        "countryPlaceholder": "Select your country",
+        "state": "State / Region *",
+        "statePlaceholder": "Select",
         "city": "City *",
         "cityPlaceholder": "Your city",
-        "state": "State *",
-        "statePlaceholder": "Select",
         "paymentInfo": "Payment information for commissions",
-        "cpf": "CPF (Tax ID) *",
-        "cpfPlaceholder": "000.000.000-00",
-        "pix": "PIX Key *",
-        "pixPlaceholder": "CPF, email, phone or random key",
+        "taxId": "Tax ID / SSN *",
+        "taxIdPlaceholder": "Tax identification number",
+        "paymentKey": "Payment Key (PIX/PayPal) *",
+        "paymentKeyPlaceholder": "PIX, PayPal, or other method",
         "submit": "Submit registration",
         "submitting": "Sending...",
         "terms": "By registering, you agree to our terms and privacy policy."
       },
       "success": {
-        "title": "Registration Submitted!",
-        "message": "We received your registration successfully! We sent a confirmation link to your email. Access it to activate your account.",
+        "title": "Registration Complete!",
+        "message": "Your account was created successfully! You will be redirected to the dashboard shortly...",
         "button": "Got it"
+      },
+      "terms": {
+        "title": "Partnership Terms",
+        "subtitle": "Read and accept the terms to continue",
+        "accept": "I have read and agree to the partnership terms and privacy policy of Asevedo Company.",
+        "decline": "Decline",
+        "accept_button": "Accept and Continue"
       }
+    }
+  },
+  "PartnerPlatform": {
+    "login": {
+      "title": "Access your account",
+      "subtitle": "Enter your email to receive the access link",
+      "emailLabel": "Email",
+      "emailPlaceholder": "your@email.com",
+      "submitButton": "Send access link",
+      "submitting": "Sending...",
+      "notPartner": "Not a partner yet?",
+      "registerHere": "Register here",
+      "backToSite": "Back to website",
+      "success": {
+        "title": "Link sent!",
+        "message": "We sent an access link to",
+        "checkInbox": "Check your inbox and spam.",
+        "useAnother": "Use another email"
+      },
+      "error": "Error sending link. Please try again."
+    },
+    "sidebar": {
+      "portalTitle": "Partner Portal",
+      "dashboard": "Dashboard",
+      "referrals": "Referrals",
+      "commissions": "Commissions",
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome back",
+      "totalReferrals": "Total referrals",
+      "activeReferrals": "In progress",
+      "paidCommissions": "Paid commissions",
+      "conversionRate": "Conversion rate",
+      "recentReferrals": "Recent Referrals",
+      "viewAll": "View all",
+      "pendingCommissions": "Pending commissions",
+      "pendingMessage": "You have commissions awaiting approval. Payment is processed after contract confirmation.",
+      "quickActions": "Quick Actions",
+      "newReferral": "New Referral",
+      "viewStatement": "View Statement"
+    },
+    "status": {
+      "pending": "Pending",
+      "diagnosis": "Diagnosis",
+      "negotiation": "Negotiation",
+      "closed": "Closed",
+      "lost": "Lost"
+    },
+    "notifications": {
+      "title": "Notifications"
+    },
+    "features": {
+      "realTimeMetrics": "Real-time metrics dashboard",
+      "referralHistory": "Complete referral history",
+      "commissionTracking": "Commission tracking",
+      "directCommunication": "Direct team communication"
     }
   }
 }

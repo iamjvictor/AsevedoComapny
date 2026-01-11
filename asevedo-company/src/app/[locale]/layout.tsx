@@ -7,7 +7,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { Footer, Header } from '@/components/layout';
+import { ConditionalLayout } from '@/components/layout';
 import { ThemeProvider } from '@/components/providers';
 import { Geist, Geist_Mono, JetBrains_Mono } from 'next/font/google';
 import '../globals.css';
@@ -106,12 +106,11 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <ConditionalLayout>{children}</ConditionalLayout>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
   );
 }
+

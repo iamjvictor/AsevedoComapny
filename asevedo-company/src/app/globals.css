@@ -344,3 +344,97 @@ a:hover {
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+/* -------------------------------------------------------------------------- */
+/* Phone Input Dark Theme                                                     */
+/* -------------------------------------------------------------------------- */
+
+.phone-input-dark {
+  --PhoneInputCountryFlag-height: 1em;
+  --PhoneInputCountrySelectArrow-color: #94a3b8;
+  --PhoneInputCountrySelectArrow-opacity: 1;
+  display: flex;
+}
+
+.phone-input-dark .PhoneInputInput {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  background: rgb(30, 41, 59);
+  border: 1px solid rgb(51, 65, 85);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.phone-input-dark .PhoneInputInput::placeholder {
+  color: rgb(100, 116, 139);
+}
+
+.phone-input-dark .PhoneInputInput:focus {
+  border-color: #8b5cf6;
+}
+
+.phone-input-dark .PhoneInputCountry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.75rem 0.75rem 1rem;
+  background: rgb(30, 41, 59);
+  border: 1px solid rgb(51, 65, 85);
+  border-right: none;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+/* Dropdown select com fundo escuro */
+.phone-input-dark .PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Estiliza o dropdown nativo quando aberto */
+.phone-input-dark .PhoneInputCountrySelect option {
+  background-color: #1e293b;
+  color: white;
+  padding: 0.5rem;
+}
+
+.phone-input-dark .PhoneInputCountryIcon {
+  width: 1.25rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+.phone-input-dark .PhoneInputCountryIcon--border {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.phone-input-dark .PhoneInputCountrySelectArrow {
+  display: block;
+  width: 0.35rem;
+  height: 0.35rem;
+  margin-left: 0.25rem;
+  border-style: solid;
+  border-color: #94a3b8;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* Força o fundo escuro no select dropdown do navegador */
+.phone-input-dark select,
+.phone-input-dark .PhoneInputCountrySelect:focus {
+  background-color: #1e293b !important;
+  color: white !important;
+}

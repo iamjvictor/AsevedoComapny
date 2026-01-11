@@ -10,6 +10,33 @@
     "cases": "Cases",
     "backToHome": "Voltar para Home"
   },
+  "Login": {
+    "title": "Acesse sua conta",
+    "subtitle": "Digite seu e-mail para receber o link de acesso",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "seu@email.com",
+    "submitButton": "Enviar link de acesso",
+    "submitting": "Enviando...",
+    "notRegistered": "Ainda não é parceiro?",
+    "registerHere": "Cadastre-se aqui",
+    "backToSite": "Voltar para o site",
+    "error": "Erro ao enviar link. Tente novamente.",
+    "brandTitle": "Acesse a plataforma",
+    "brandHighlight": "Asevedo Company",
+    "brandSubtitle": "Login rápido e seguro via e-mail. Sem senha para lembrar.",
+    "features": {
+      "secure": "Acesso seguro via link",
+      "noPassword": "Sem senha para lembrar",
+      "instant": "Link expira em 1 hora",
+      "multiDevice": "Acesse de qualquer dispositivo"
+    },
+    "success": {
+      "title": "Link enviado!",
+      "message": "Enviamos um link de acesso para",
+      "checkInbox": "Verifique sua caixa de entrada e spam.",
+      "useAnother": "Usar outro e-mail"
+    }
+  },
   "Header": {
     "getQuote": "Fazer Orçamento",
     "clientArea": "Área do Cliente",
@@ -243,26 +270,97 @@
         "namePlaceholder": "Seu nome completo",
         "email": "E-mail *",
         "emailPlaceholder": "seu@email.com",
+        "password": "Senha *",
+        "passwordPlaceholder": "Mínimo 6 caracteres",
         "phone": "Telefone / WhatsApp *",
         "phonePlaceholder": "(00) 00000-0000",
+        "country": "País *",
+        "countryPlaceholder": "Selecione seu país",
+        "state": "Estado / Região *",
+        "statePlaceholder": "Selecione",
         "city": "Cidade *",
         "cityPlaceholder": "Sua cidade",
-        "state": "Estado *",
-        "statePlaceholder": "Selecione",
         "paymentInfo": "Dados para recebimento de comissões",
-        "cpf": "CPF *",
-        "cpfPlaceholder": "000.000.000-00",
-        "pix": "Chave PIX *",
-        "pixPlaceholder": "CPF, e-mail, telefone ou chave aleatória",
+        "taxId": "CPF / Tax ID *",
+        "taxIdPlaceholder": "Documento de identificação fiscal",
+        "paymentKey": "Chave de Pagamento (PIX/PayPal) *",
+        "paymentKeyPlaceholder": "PIX, PayPal, ou outro método",
         "submit": "Enviar cadastro",
         "submitting": "Enviando...",
         "terms": "Ao se cadastrar, você concorda com nossos termos e política de privacidade."
       },
       "success": {
-        "title": "Cadastro Enviado!",
-        "message": "Recebemos seu cadastro com sucesso! Enviamos um link de confirmação para seu e-mail. Acesse para ativar sua conta.",
+        "title": "Cadastro Realizado!",
+        "message": "Sua conta foi criada com sucesso! Você será redirecionado para o painel em instantes...",
         "button": "Entendido"
+      },
+      "terms": {
+        "title": "Termos de Parceria",
+        "subtitle": "Leia e aceite os termos para continuar",
+        "accept": "Li e concordo com os termos de parceria e política de privacidade da Asevedo Company.",
+        "decline": "Recusar",
+        "accept_button": "Aceitar e Continuar"
       }
+    }
+  },
+  "PartnerPlatform": {
+    "login": {
+      "title": "Acesse sua conta",
+      "subtitle": "Digite seu e-mail para receber o link de acesso",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "seu@email.com",
+      "submitButton": "Enviar link de acesso",
+      "submitting": "Enviando...",
+      "notPartner": "Ainda não é parceiro?",
+      "registerHere": "Cadastre-se aqui",
+      "backToSite": "Voltar para o site",
+      "success": {
+        "title": "Link enviado!",
+        "message": "Enviamos um link de acesso para",
+        "checkInbox": "Verifique sua caixa de entrada e spam.",
+        "useAnother": "Usar outro e-mail"
+      },
+      "error": "Erro ao enviar link. Tente novamente."
+    },
+    "sidebar": {
+      "portalTitle": "Portal do Parceiro",
+      "dashboard": "Dashboard",
+      "referrals": "Indicações",
+      "commissions": "Comissões",
+      "profile": "Perfil",
+      "settings": "Configurações",
+      "logout": "Sair"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Bem-vindo de volta",
+      "totalReferrals": "Total de indicações",
+      "activeReferrals": "Em andamento",
+      "paidCommissions": "Comissões pagas",
+      "conversionRate": "Taxa de conversão",
+      "recentReferrals": "Indicações Recentes",
+      "viewAll": "Ver todas",
+      "pendingCommissions": "Comissões pendentes",
+      "pendingMessage": "Você tem comissões aguardando aprovação. O pagamento é processado após a confirmação do contrato.",
+      "quickActions": "Ações Rápidas",
+      "newReferral": "Nova Indicação",
+      "viewStatement": "Ver Extrato"
+    },
+    "status": {
+      "pending": "Pendente",
+      "diagnosis": "Diagnóstico",
+      "negotiation": "Negociação",
+      "closed": "Fechado",
+      "lost": "Perdido"
+    },
+    "notifications": {
+      "title": "Notificações"
+    },
+    "features": {
+      "realTimeMetrics": "Dashboard com métricas em tempo real",
+      "referralHistory": "Histórico completo de indicações",
+      "commissionTracking": "Acompanhamento de comissões",
+      "directCommunication": "Comunicação direta com a equipe"
     }
   }
 }
