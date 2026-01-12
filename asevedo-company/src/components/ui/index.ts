@@ -5,6 +5,7 @@
 
 export { Badge } from './Badge';
 export { Button } from './Button';
+export { Calendar, CalendarCard } from './Calendar';
 export {
   Card,
   CardContent,

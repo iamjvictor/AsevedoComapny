@@ -83,7 +83,7 @@
     "items": {
       "web": {
         "title": "Plataformas e Sistemas Web",
-        "description": "Desenvolvemos sistemas web completos — de intranets a plataformas SaaS — com interfaces modernas e arquitetura preparada para escalar."
+        "description": "E-commerces, plataformas SaaS, dashboards administrativos e portais corporativos — desenvolvidos com interfaces modernas e arquitetura pronta para escalar."
       },
       "mobile": {
         "title": "Aplicações Mobile",
@@ -94,8 +94,8 @@
         "description": "Bots personalizados para agendamento, atendimento, pagamentos e integração com seus sistemas e plataformas."
       },
       "architecture": {
-        "title": "Arquitetura & Escalabilidade",
-        "description": "Projetamos infraestruturas que suportam crescimento exponencial sem comprometer performance ou segurança."
+        "title": "Web3 & Blockchain",
+        "description": "Smart contracts, dApps, integração com carteiras e redes descentralizadas — desenvolvemos soluções seguras para a nova economia digital."
       }
     }
   },
@@ -147,6 +147,21 @@
       "title": "Proposta Solicitada!",
       "message": "Nossa equipe entrará em contato em breve para entender melhor seu projeto.",
       "button": "Entendido"
+    },
+    "scheduling": {
+      "title": "Agende uma Reunião",
+      "subtitle": "Escolha o melhor dia e horário para conversarmos sobre seu projeto.",
+      "loading": "Carregando horários disponíveis...",
+      "confirm": "Confirmar Agendamento",
+      "confirming": "Agendando...",
+      "skipLink": "Agendar depois",
+      "success": {
+        "title": "Reunião Agendada!",
+        "subtitle": "Confirmamos sua reunião para:",
+        "at": "às",
+        "emailNote": "Você receberá um e-mail com os detalhes da reunião.",
+        "button": "Entendido"
+      }
     }
   },
   "AboutLeadership": {

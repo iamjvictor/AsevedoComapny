@@ -9,14 +9,17 @@
 
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 type DottedSurfaceProps = Omit<React.ComponentProps<'div'>, 'ref'>;
 
 export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
   const { theme } = useTheme();
+  const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
   
   // Store scene references for cleanup
   const sceneRef = useRef<{
@@ -28,8 +31,14 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
     count: number;
   } | null>(null);
 
+  // Ensure component is mounted before running Three.js
   useEffect(() => {
-    if (!containerRef.current) return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // Only run if mounted and container exists
+    if (!isMounted || !containerRef.current) return;
 
     // Configuration for the particle grid
     const SEPARATION = 150;    // Distance between particles
@@ -179,7 +188,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
         }
       }
     };
-  }, [theme]);
+  }, [theme, isMounted, pathname]);
 
   return (
     <div

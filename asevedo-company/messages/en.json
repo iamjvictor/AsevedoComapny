@@ -83,7 +83,7 @@
     "items": {
       "web": {
         "title": "Web Platforms and Systems",
-        "description": "We develop complete web systems — from intranets to SaaS platforms — with modern interfaces and architecture ready to scale."
+        "description": "E-commerces, SaaS platforms, admin dashboards, and corporate portals — built with modern interfaces and architecture ready to scale."
       },
       "mobile": {
         "title": "Mobile Applications",
@@ -94,8 +94,8 @@
         "description": "Custom bots for scheduling, customer service, payments, and integration with your systems and platforms."
       },
       "architecture": {
-        "title": "Architecture & Scalability",
-        "description": "We design infrastructures that support exponential growth without compromising performance or security."
+        "title": "Web3 & Blockchain",
+        "description": "Smart contracts, dApps, wallet integration, and decentralized networks — we build secure solutions for the new digital economy."
       }
     }
   },
@@ -147,6 +147,21 @@
       "title": "Proposal Requested!",
       "message": "Our team will contact you soon to better understand your project.",
       "button": "Understood"
+    },
+    "scheduling": {
+      "title": "Schedule a Meeting",
+      "subtitle": "Choose the best day and time to discuss your project.",
+      "loading": "Loading available times...",
+      "confirm": "Confirm Scheduling",
+      "confirming": "Scheduling...",
+      "skipLink": "Schedule later",
+      "success": {
+        "title": "Meeting Scheduled!",
+        "subtitle": "We've confirmed your meeting for:",
+        "at": "at",
+        "emailNote": "You will receive an email with the meeting details.",
+        "button": "Got it"
+      }
     }
   },
   "AboutLeadership": {
