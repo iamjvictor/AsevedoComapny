@@ -187,7 +187,7 @@ export function HeroSection() {
           </button>
 
           <a
-            href={`/${locale}/cliente`}
+            href={`/${locale}/login?redirect=cliente`}
             className="text-slate-400 hover:text-white transition-colors duration-300 font-medium flex items-center group"
             style={{
               fontSize: 'var(--text-base)',

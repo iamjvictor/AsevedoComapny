@@ -9,6 +9,7 @@
 import { Button, Calendar, Section } from '@/components/ui';
 import { DateOccupancy } from '@/components/ui/Calendar';
 import { supabase } from '@/components/clients/Supabase';
+import { notifyNewLead } from '@/services/emailService';
 import { Calendar as CalendarIcon, CheckCircle, Send, X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
@@ -37,6 +38,13 @@ export function CTASection() {
   
   // Estado do lead salvo
   const [savedLeadId, setSavedLeadId] = useState<string | null>(null);
+  const [savedLeadData, setSavedLeadData] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+    source: string;
+  } | null>(null);
   
   // Estado do calendário
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -225,6 +233,15 @@ export function CTASection() {
         partnerCode: trackingData.partnerCode,
         source 
       });
+
+      // Salva os dados do lead para enviar depois junto com a reunião
+      setSavedLeadData({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        source: source,
+      });
       
       setIsSubmitting(false);
       setShowModal(true);
@@ -245,7 +262,7 @@ export function CTASection() {
 
   // Função para criar o agendamento
   const handleScheduleMeeting = async () => {
-    if (!selectedDate || !selectedTime || !savedLeadId) return;
+    if (!selectedDate || !selectedTime || !savedLeadId || !savedLeadData) return;
     
     setIsScheduling(true);
     
@@ -258,8 +275,7 @@ export function CTASection() {
       const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
       const day = String(selectedDate.getDate()).padStart(2, '0');
       
-      // Cria a string no formato ISO SEM timezone para salvar o horário exato
-      // O banco vai armazenar exatamente 17:00 se o usuário selecionar 17:00
+
       const scheduledAt = `${year}-${month}-${day}T${hours}:${minutes}:00`;
       
       console.log('Agendando para:', scheduledAt);
@@ -282,6 +298,38 @@ export function CTASection() {
         leadId: savedLeadId, 
         date: scheduledAt 
       });
+
+      // Formata a data para exibição no email
+      const meetingDateFormatted = selectedDate.toLocaleDateString('pt-BR', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+
+      // Dispara notificação por email com dados da reunião
+      notifyNewLead({
+        id: savedLeadId,
+        name: savedLeadData.name,
+        email: savedLeadData.email,
+        phone: savedLeadData.phone,
+        message: savedLeadData.message,
+        source: savedLeadData.source,
+        partnerCode: trackingData.partnerCode,
+        utmSource: trackingData.utmSource,
+        utmMedium: trackingData.utmMedium,
+        utmCampaign: trackingData.utmCampaign,
+        meetingDate: meetingDateFormatted,
+        meetingTime: selectedTime,
+      }).then((result) => {
+        if (result.success) {
+          console.log('📧 Email de notificação enviado com sucesso!');
+        } else {
+          console.warn('⚠️ Falha ao enviar email de notificação:', result.error);
+        }
+      }).catch((err) => {
+        console.error('❌ Erro ao enviar email de notificação:', err);
+      });
       
       setIsScheduling(false);
       setScheduleSuccess(true);
@@ -299,6 +347,7 @@ export function CTASection() {
     setSelectedTime(null);
     setScheduleSuccess(false);
     setSavedLeadId(null);
+    setSavedLeadData(null);
   };
 
   // Formata data para exibição

@@ -398,14 +398,14 @@ const handleSubmit = async (e: React.FormEvent) => {
               </button>
               
               <a
-                href="#como-funciona"
+                href={`/${locale}/login?redirect=plataforma-parceiro/dashboard`}
                 className="text-slate-400 hover:text-white transition-colors duration-300 font-medium flex items-center group"
                 style={{
                   fontSize: 'var(--text-base)',
                   gap: 'var(--space-2)',
                 }}
               >
-                {t('cta.secondaryButton')}
+                {t('hero.alreadyPartner')}
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
               </a>
             </div>

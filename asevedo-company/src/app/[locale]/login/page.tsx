@@ -2,16 +2,17 @@
 
 /**
  * Universal Login Page
- * Magic link authentication for partners, clients, etc.
- * Reusable across different platform areas
+ * Email + Password authentication for partners and clients
+ * Integrated with Supabase Auth
  */
 
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Mail, ArrowRight, Loader2, CheckCircle, LogIn } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Loader2, CheckCircle, LogIn, Users, Briefcase, Shield, Zap } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { supabase } from '@/components/clients/Supabase';
 
 export default function LoginPage() {
   const t = useTranslations('Login');
@@ -23,8 +24,9 @@ export default function LoginPage() {
   const redirectTo = searchParams.get('redirect') || 'plataforma-parceiro/dashboard';
   
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isSent, setIsSent] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,19 +35,39 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      // TODO: Integrate with Supabase Auth magic link
-      console.log('Sending magic link to:', email, 'redirect:', redirectTo);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      setIsSent(true);
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (authError) {
+        console.error('Auth error:', authError);
+        setError(t('error'));
+        setIsLoading(false);
+        return;
+      }
+
+      if (data.session) {
+        setIsSuccess(true);
+        // Redirect after short delay to show success state
+        setTimeout(() => {
+          router.push(`/${locale}/${redirectTo}`);
+        }, 1500);
+      }
     } catch (err) {
+      console.error('Login error:', err);
       setError(t('error'));
-    } finally {
       setIsLoading(false);
     }
   };
+
+  // Features to display on the left side
+  const features = [
+    { icon: <Briefcase size={16} />, text: t('features.clients') },
+    { icon: <Users size={16} />, text: t('features.partners') },
+    { icon: <Shield size={16} />, text: t('features.secure') },
+    { icon: <Zap size={16} />, text: t('features.realtime') },
+  ];
 
   return (
     <div className="min-h-screen flex">
@@ -73,23 +95,18 @@ export default function LoginPage() {
             {t('brandTitle')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-400">{t('brandHighlight')}</span>
           </h1>
           
-          <p className="text-slate-400 text-center max-w-md mb-8">
+          <p className="text-slate-400 text-center max-w-md mb-10">
             {t('brandSubtitle')}
           </p>
 
           {/* Features */}
-          <div className="space-y-4 text-left max-w-sm">
-            {[
-              t('features.secure'),
-              t('features.noPassword'),
-              t('features.instant'),
-              t('features.multiDevice'),
-            ].map((feature, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center">
-                  <CheckCircle size={14} className="text-violet-400" />
+          <div className="space-y-4 text-left max-w-md w-full">
+            {features.map((feature, index) => (
+              <div key={index} className="flex items-start gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                <div className="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center shrink-0 text-violet-400">
+                  {feature.icon}
                 </div>
-                <span className="text-slate-300 text-sm">{feature}</span>
+                <span className="text-slate-300 text-sm leading-relaxed">{feature.text}</span>
               </div>
             ))}
           </div>
@@ -112,7 +129,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {!isSent ? (
+          {!isSuccess ? (
             <>
               {/* Header */}
               <div className="text-center mb-8">
@@ -128,7 +145,8 @@ export default function LoginPage() {
               </div>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Email */}
                 <div>
                   <label 
                     htmlFor="email" 
@@ -152,12 +170,48 @@ export default function LoginPage() {
                   </div>
                 </div>
 
+                {/* Password */}
+                <div>
+                  <label 
+                    htmlFor="password" 
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    {t('passwordLabel')}
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Lock size={18} className="text-foreground-muted" />
+                    </div>
+                    <input
+                      type="password"
+                      id="password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full pl-12 pr-4 py-3 bg-background-secondary border border-card-border rounded-lg text-foreground placeholder:text-foreground-muted focus:outline-none focus:border-violet-500 transition-colors"
+                      placeholder={t('passwordPlaceholder')}
+                    />
+                  </div>
+                </div>
+
+                {/* Forgot Password Link */}
+                <div className="text-right">
+                  <button
+                    type="button"
+                    className="text-sm text-violet-400 hover:text-violet-300 transition-colors"
+                  >
+                    {t('forgotPassword')}
+                  </button>
+                </div>
+
+                {/* Error Message */}
                 {error && (
                   <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
                     {error}
                   </div>
                 )}
 
+                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -177,17 +231,26 @@ export default function LoginPage() {
                 </button>
               </form>
 
-              {/* Register Link */}
-              <div className="mt-8 text-center">
+              {/* Register Links */}
+              <div className="mt-8 text-center space-y-3">
                 <p className="text-foreground-secondary text-sm">
-                  {t('notRegistered')}{' '}
+                  {t('notRegistered')}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Link 
                     href={`/${locale}/parceiro`}
-                    className="text-violet-400 hover:text-violet-300 font-medium transition-colors"
+                    className="text-violet-400 hover:text-violet-300 font-medium transition-colors text-sm"
                   >
-                    {t('registerHere')}
+                    {t('registerPartner')}
                   </Link>
-                </p>
+                  <span className="hidden sm:inline text-foreground-muted">•</span>
+                  <Link 
+                    href={`/${locale}#cta`}
+                    className="text-slate-400 hover:text-slate-300 font-medium transition-colors text-sm"
+                  >
+                    {t('registerClient')}
+                  </Link>
+                </div>
               </div>
             </>
           ) : (
@@ -200,18 +263,12 @@ export default function LoginPage() {
                 {t('success.title')}
               </h2>
               <p className="text-foreground-secondary mb-6">
-                {t('success.message')} <strong className="text-foreground">{email}</strong>. 
-                {t('success.checkInbox')}
+                {t('success.message')}
               </p>
-              <button
-                onClick={() => {
-                  setIsSent(false);
-                  setEmail('');
-                }}
-                className="text-violet-400 hover:text-violet-300 font-medium transition-colors"
-              >
-                {t('success.useAnother')}
-              </button>
+              <div className="flex items-center justify-center gap-2 text-violet-400">
+                <Loader2 size={18} className="animate-spin" />
+                <span>{t('success.loading')}</span>
+              </div>
             </div>
           )}
 

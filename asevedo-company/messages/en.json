@@ -12,29 +12,32 @@
   },
   "Login": {
     "title": "Access your account",
-    "subtitle": "Enter your email to receive the access link",
+    "subtitle": "Enter your email and password",
     "emailLabel": "Email",
     "emailPlaceholder": "your@email.com",
-    "submitButton": "Send access link",
-    "submitting": "Sending...",
-    "notRegistered": "Not a partner yet?",
-    "registerHere": "Register here",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Your password",
+    "submitButton": "Sign In",
+    "submitting": "Signing in...",
+    "forgotPassword": "Forgot password?",
+    "notRegistered": "Don't have an account yet?",
+    "registerPartner": "Register as a partner",
+    "registerClient": "Contact us",
     "backToSite": "Back to website",
-    "error": "Error sending link. Please try again.",
-    "brandTitle": "Access the platform",
+    "error": "Incorrect email or password. Please try again.",
+    "brandTitle": "Platform",
     "brandHighlight": "Asevedo Company",
-    "brandSubtitle": "Fast and secure login via email. No password to remember.",
+    "brandSubtitle": "Access your exclusive area and track everything in one place.",
     "features": {
-      "secure": "Secure access via link",
-      "noPassword": "No password to remember",
-      "instant": "Link expires in 1 hour",
-      "multiDevice": "Access from any device"
+      "clients": "Clients: track contracts, payments and project progress",
+      "partners": "Partners: view your referrals, commissions and metrics",
+      "secure": "Secure and encrypted access",
+      "realtime": "Real-time updated information"
     },
     "success": {
-      "title": "Link sent!",
-      "message": "We sent an access link to",
-      "checkInbox": "Check your inbox and spam.",
-      "useAnother": "Use another email"
+      "title": "Welcome!",
+      "message": "Redirecting to your area...",
+      "loading": "Loading..."
     }
   },
   "Header": {
@@ -193,6 +196,7 @@
       "titleHighlight": "as a partner",
       "subtitle": "Refer projects, bridge the gap between companies and digital solutions, and earn commissions on closed contracts.",
       "cta": "Become a partner",
+      "alreadyPartner": "Already a partner",
       "microcopy": "No membership fee · Commission per closed project"
     },
     "targetAudience": {

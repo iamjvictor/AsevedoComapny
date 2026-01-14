@@ -4,6 +4,7 @@
  */
 
 import { ThemeProvider } from '@/components/providers';
+import { AuthProvider } from '@/providers';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
@@ -19,9 +20,11 @@ export default async function PartnerPlatformLayout({ children, params }: Props)
   return (
     <NextIntlClientProvider messages={messages}>
       <ThemeProvider>
-        <div className="min-h-screen bg-background">
-          {children}
-        </div>
+        <AuthProvider>
+          <div className="min-h-screen bg-background">
+            {children}
+          </div>
+        </AuthProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   );

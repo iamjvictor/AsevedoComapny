@@ -12,29 +12,32 @@
   },
   "Login": {
     "title": "Acesse sua conta",
-    "subtitle": "Digite seu e-mail para receber o link de acesso",
+    "subtitle": "Entre com seu e-mail e senha",
     "emailLabel": "E-mail",
     "emailPlaceholder": "seu@email.com",
-    "submitButton": "Enviar link de acesso",
-    "submitting": "Enviando...",
-    "notRegistered": "Ainda não é parceiro?",
-    "registerHere": "Cadastre-se aqui",
+    "passwordLabel": "Senha",
+    "passwordPlaceholder": "Sua senha",
+    "submitButton": "Entrar",
+    "submitting": "Entrando...",
+    "forgotPassword": "Esqueceu a senha?",
+    "notRegistered": "Ainda não tem conta?",
+    "registerPartner": "Cadastre-se como parceiro",
+    "registerClient": "Fale conosco",
     "backToSite": "Voltar para o site",
-    "error": "Erro ao enviar link. Tente novamente.",
-    "brandTitle": "Acesse a plataforma",
+    "error": "E-mail ou senha incorretos. Tente novamente.",
+    "brandTitle": "Plataforma",
     "brandHighlight": "Asevedo Company",
-    "brandSubtitle": "Login rápido e seguro via e-mail. Sem senha para lembrar.",
+    "brandSubtitle": "Acesse sua área exclusiva e acompanhe tudo em um só lugar.",
     "features": {
-      "secure": "Acesso seguro via link",
-      "noPassword": "Sem senha para lembrar",
-      "instant": "Link expira em 1 hora",
-      "multiDevice": "Acesse de qualquer dispositivo"
+      "clients": "Clientes: acompanhe contratos, pagamentos e andamento dos projetos",
+      "partners": "Parceiros: veja suas indicações, comissões e métricas",
+      "secure": "Acesso seguro e criptografado",
+      "realtime": "Informações atualizadas em tempo real"
     },
     "success": {
-      "title": "Link enviado!",
-      "message": "Enviamos um link de acesso para",
-      "checkInbox": "Verifique sua caixa de entrada e spam.",
-      "useAnother": "Usar outro e-mail"
+      "title": "Bem-vindo!",
+      "message": "Redirecionando para sua área...",
+      "loading": "Carregando..."
     }
   },
   "Header": {
@@ -193,6 +196,7 @@
       "titleHighlight": "como parceiro",
       "subtitle": "Indique projetos, faça a ponte entre empresas e soluções digitais e receba comissões por contratos fechados.",
       "cta": "Tornar-se parceiro",
+      "alreadyPartner": "Já sou parceiro",
       "microcopy": "Sem custo de adesão · Comissão por projeto fechado"
     },
     "targetAudience": {
@@ -267,7 +271,7 @@
         "closed": "Fechado",
         "negotiation": "Em negociação",
         "diagnosis": "Diagnóstico"
-      } 
+      }
     },
     "cta": {
       "title": "Pronto para se tornar",
