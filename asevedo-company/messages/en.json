@@ -516,13 +516,13 @@
     },
     "getStarted": {
       "title": "Partner Manual",
-      "subtitle": "Your complete guide to referring projects",
+      "subtitle": "Pain Identification & Technical Diagnosis Method",
       "intro": {
         "title": "The Role of the Commercial Partner",
         "description1": "As a commercial partner of Asevedo Company, you act as a strategic bridge between companies with real problems and our specialized engineering team.",
         "description2": "Your role is not to sell services, negotiate prices, or execute projects. Your focus is to identify opportunities and direct qualified leads to our team.",
         "mainObjective": "Your main objective:",
-        "mainGoal": "Identify a real pain point and guide the lead to Asevedo Company's technical diagnosis.",
+        "mainGoal": "Identify a real pain point, awaken awareness in the lead, and guide them to Asevedo Company's technical diagnosis.",
         "step1": "You identify the pain point",
         "step2": "The responsible engineer performs the diagnosis",
         "step3": "The company proposes the solution and budget"
@@ -535,7 +535,12 @@
         "systems": { "title": "Internal Systems", "desc": "Lack of control, decisions without data, disorganized processes" },
         "maintenance": { "title": "Software Maintenance", "desc": "Legacy systems, recurring bugs, lack of technical support" },
         "ai": { "title": "Applied AI", "desc": "Manual data analysis, inaccurate predictions, overloaded customer service" },
-        "tip": "Remember: The partner doesn't offer services. They identify problems."
+        "tip": "Remember: The partner doesn't offer services. They identify problems.",
+        "masterPhrase": "The partner doesn't sell solutions. He activates the diagnosis.",
+        "whyDiagnosis": {
+          "title": "Why do we offer a technical diagnosis?",
+          "description": "Because we believe that a good solution starts with a deep understanding of the problem. Diagnosis allows for aligning expectations, avoiding generic solutions, and proposing something truly effective."
+        }
       },
       "identifying": {
         "title": "How to Identify a Good Opportunity",
@@ -555,7 +560,7 @@
         "checklistDesc": "If the company has 2 or more of these points, it's a qualified opportunity for referral.",
         "goldenTip": "Golden Tip: Lead Quality",
         "goldenTipDesc": "The better the client, the better the contract, the better your commission.",
-        "goldenTipNote": "It's hard to charge a fair price from a small bakery owner earning $1k/month. Look for companies with structure, revenue, and real investment capacity.",
+        "goldenTipNote": "Very small or informal businesses usually do not have the structure or budget for custom projects. Look for companies with structure, revenue, and real investment capacity.",
         "avoid": "Avoid:",
         "avoidDesc": "Micro-enterprises without revenue, informal businesses, those without budget to invest",
         "seek": "Look for:",
@@ -575,7 +580,11 @@
         ],
         "nextStep": "Next step: Call with the Head of Engineering",
         "nextStepDesc": "The diagnosis is made directly with the company's technical leadership. This ensures authority, technical precision, and a proposal truly aligned with the client's needs.",
-        "nextStepNote": "Your work is already done. From here, the Asevedo team handles the entire commercial and technical process."
+        "nextStepNote": "Your work is already done. From here, the Asevedo team handles the entire commercial and technical process.",
+        "afterProposal": {
+          "title": "What happens after the proposal?",
+          "description": "After the proposal is approved, Asevedo Company executes the project according to the defined scope. The partner tracks the status through the platform and receives the commission as per the program rules."
+        }
       },
       "bestPractices": {
         "title": "Best Approach Practices",
@@ -586,7 +595,8 @@
           "Focus on the problem, not the solution",
           "Let the lead describe their own pain",
           "Direct to the site with your link",
-          "Be genuine and empathetic"
+          "Be genuine and empathetic",
+          "Reinforce that the call is with technical leadership"
         ],
         "dontTitle": "What to avoid",
         "dontItems": [
@@ -637,7 +647,11 @@
         "linkCopied": "Link Copied!",
         "viewReferrals": "View My Referrals",
         "accessMaterials": "Access Materials",
-        "finalTip": "The better the pain described by the lead, the better the proposed solution — and the greater your return."
+        "finalTip": "The better the pain described by the lead, the better the proposed solution — and the greater your return.",
+        "expectations": {
+          "title": "Realistic Expectation",
+          "description": "Consistent partnerships take time. Qualified referrals lead to better contracts and larger commissions over time."
+        }
       }
     },
     "status": {

@@ -159,6 +159,13 @@ export default function ComeceAquiPage() {
                                     {t('getStarted.intro.description2')}
                                 </p>
 
+                                {/* Master Phrase Highlight */}
+                                <div className="bg-violet-500/10 border-l-4 border-violet-500 p-4 mb-6 rounded-r-xl">
+                                    <p className="text-foreground italic font-medium">
+                                        " {t('getStarted.services.masterPhrase')} "
+                                    </p>
+                                </div>
+
                                 {/* Box de destaque */}
                                 <div className="bg-gradient-to-br from-violet-500/10 to-purple-500/5 rounded-xl p-5 border border-violet-500/20">
                                     <p className="text-sm text-foreground-muted mb-4 font-medium">{t('getStarted.intro.mainObjective')}</p>
@@ -217,9 +224,20 @@ export default function ComeceAquiPage() {
                                 ))}
                             </div>
 
-                            <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                            <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20 mb-6">
                                 <p className="text-sm text-foreground">
-                                    💡 <strong>{t('getStarted.services.tip')}</strong>
+                                    <strong>{t('getStarted.services.tip')}</strong>
+                                </p>
+                            </div>
+
+                            {/* Por que o diagnóstico é gratuito */}
+                            <div className="bg-background-secondary rounded-xl p-6 border border-card-border">
+                                <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                                    <Brain size={18} className="text-blue-400" />
+                                    {t('getStarted.services.whyDiagnosis.title')}
+                                </h3>
+                                <p className="text-sm text-foreground-secondary leading-relaxed">
+                                    {t('getStarted.services.whyDiagnosis.description')}
                                 </p>
                             </div>
                         </section>
@@ -378,7 +396,7 @@ export default function ComeceAquiPage() {
                             </div>
 
                             {/* Destaque do Head de Engenharia */}
-                            <div className="mt-6 bg-gradient-to-br from-violet-500/15 to-purple-500/10 rounded-xl p-6 border border-violet-500/30">
+                            <div className="mt-6 bg-gradient-to-br from-violet-500/15 to-purple-500/10 rounded-xl p-6 border border-violet-500/30 mb-6">
                                 <div className="flex items-start gap-4">
                                     <div className="w-12 h-12 rounded-xl bg-violet-500/30 flex items-center justify-center flex-shrink-0">
                                         <Handshake size={24} className="text-violet-400" />
@@ -393,6 +411,17 @@ export default function ComeceAquiPage() {
                                         </p>
                                     </div>
                                 </div>
+                            </div>
+
+                            {/* O que acontece depois da proposta */}
+                            <div className="bg-background-secondary rounded-xl p-6 border border-card-border">
+                                <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                                    <CheckCircle2 size={18} className="text-emerald-400" />
+                                    {t('getStarted.process.afterProposal.title')}
+                                </h3>
+                                <p className="text-sm text-foreground-secondary leading-relaxed">
+                                    {t('getStarted.process.afterProposal.description')}
+                                </p>
                             </div>
                         </section>
 
@@ -486,6 +515,24 @@ export default function ComeceAquiPage() {
                                     </div>
                                 </div>
 
+                                {/* Prospecção Local */}
+                                <div className="bg-background-secondary rounded-xl p-6 border border-card-border min-h-[200px]">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center">
+                                            <Phone size={20} className="text-orange-400" />
+                                        </div>
+                                        <h3 className="font-semibold text-foreground">{t('getStarted.strategies.local.title')}</h3>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {[0, 1, 2, 3].map((i) => (
+                                            <div key={i} className="flex items-center gap-2 text-sm text-foreground-secondary">
+                                                <div className="w-2 h-2 rounded-full bg-orange-400" />
+                                                {t(`getStarted.strategies.local.items.${i}`)}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
                                 {/* Conteúdo Dark */}
                                 <div className="bg-gradient-to-br from-purple-500/10 to-violet-500/5 rounded-xl p-6 border border-purple-500/20 min-h-[200px]">
                                     <div className="flex items-center gap-3 mb-4">
@@ -514,29 +561,11 @@ export default function ComeceAquiPage() {
                                         ))}
                                     </div>
                                 </div>
-
-                                {/* Prospecção Local */}
-                                <div className="bg-background-secondary rounded-xl p-6 border border-card-border min-h-[200px]">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center">
-                                            <Phone size={20} className="text-orange-400" />
-                                        </div>
-                                        <h3 className="font-semibold text-foreground">{t('getStarted.strategies.local.title')}</h3>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        {[0, 1, 2, 3].map((i) => (
-                                            <div key={i} className="flex items-center gap-2 text-sm text-foreground-secondary">
-                                                <div className="w-2 h-2 rounded-full bg-orange-400" />
-                                                {t(`getStarted.strategies.local.items.${i}`)}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
                             </div>
 
                             <div className="mt-6 p-4 bg-purple-500/10 rounded-lg border border-purple-500/20">
                                 <p className="text-sm text-foreground">
-                                    🎯 <strong>{t('getStarted.strategies.goal')}</strong>
+                                    <strong>{t('getStarted.strategies.goal')}</strong>
                                 </p>
                             </div>
                         </section>
@@ -595,7 +624,7 @@ export default function ComeceAquiPage() {
 
                                 {/* Resumo das dicas de ouro */}
                                 <div className="bg-background-secondary/50 rounded-xl p-6 border border-card-border mb-8">
-                                    <h3 className="font-semibold text-white mb-4 text-center">🏆 {t('getStarted.cta.summaryTitle')}</h3>
+                                    <h3 className="font-semibold text-white mb-4 text-center">{t('getStarted.cta.summaryTitle')}</h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
                                         <div>
                                             <p className="text-2xl mb-1">🎯</p>
@@ -638,9 +667,17 @@ export default function ComeceAquiPage() {
                                 </div>
 
                                 <div className="text-center">
-                                    <p className="text-sm text-foreground-muted">
-                                        💡 {t('getStarted.cta.finalTip')}
+                                    <p className="text-sm text-foreground-muted mb-4">
+                                        {t('getStarted.cta.finalTip')}
                                     </p>
+
+                                    {/* Expectativa Realista */}
+                                    <div className="inline-block px-6 py-4 bg-background-secondary/50 rounded-xl border border-card-border max-w-xl mx-auto">
+                                        <h4 className="font-bold text-white mb-2 text-sm uppercase tracking-wider">{t('getStarted.cta.expectations.title')}</h4>
+                                        <p className="text-sm text-foreground-secondary italic">
+                                            {t('getStarted.cta.expectations.description')}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </section>

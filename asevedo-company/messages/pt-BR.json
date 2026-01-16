@@ -516,13 +516,13 @@
     },
     "getStarted": {
       "title": "Manual do Parceiro Comercial",
-      "subtitle": "Seu guia completo para indicar projetos",
+      "subtitle": "Método de Identificação de Dor & Diagnóstico Técnico",
       "intro": {
         "title": "O Papel do Parceiro Comercial",
         "description1": "Como parceiro comercial da Asevedo Company, você atua como uma ponte estratégica entre empresas com problemas reais e nossa equipe de engenharia especializada.",
         "description2": "Seu papel não é vender serviços, negociar valores ou executar projetos. Seu foco é identificar oportunidades e direcionar leads qualificados para nossa equipe.",
         "mainObjective": "Seu objetivo principal:",
-        "mainGoal": "Identificar uma dor real e conduzir o lead até o diagnóstico técnico da Asevedo Company.",
+        "mainGoal": "Identificar uma dor real, despertar consciência no lead e conduzi-lo até o diagnóstico técnico da Asevedo Company.",
         "step1": "Você identifica a dor",
         "step2": "O engenheiro responsável faz o diagnóstico",
         "step3": "A empresa propõe a solução e o orçamento"
@@ -535,12 +535,17 @@
         "systems": { "title": "Sistemas Internos", "desc": "Falta de controle, decisões sem dados, processos desorganizados" },
         "maintenance": { "title": "Manutenção de Software", "desc": "Sistemas antigos, bugs recorrentes, falta de suporte técnico" },
         "ai": { "title": "IA Aplicada", "desc": "Análise de dados manual, previsões imprecisas, atendimento sobrecarregado" },
-        "tip": "Lembre-se: O parceiro não oferece serviços. Ele identifica problemas."
+        "tip": "Lembre-se: O parceiro não oferece serviços. Ele identifica problemas.",
+        "masterPhrase": "O parceiro não vende soluções. Ele ativa o diagnóstico.",
+        "whyDiagnosis": {
+          "title": "Por que oferecemos um diagnóstico técnico?",
+          "description": "Porque acreditamos que uma boa solução começa com entendimento profundo do problema. O diagnóstico permite alinhar expectativas, evitar soluções genéricas e propor algo realmente eficaz."
+        }
       },
       "identifying": {
         "title": "Como Identificar uma Boa Oportunidade",
         "description": "A dor surge em conversas normais, observações e reclamações do dia a dia. Fique atento aos sinais.",
-        "signsTitle": "Sinais de dor em empresas:",
+        "signsTitle": "Sinais de dor nas empresas:",
         "signs": [
           "Processos manuais e repetitivos",
           "Excesso de planilhas para controle",
@@ -555,7 +560,7 @@
         "checklistDesc": "Se a empresa apresenta 2 ou mais desses pontos, é uma oportunidade qualificada para indicação.",
         "goldenTip": "Dica de Ouro: Qualidade do Lead",
         "goldenTipDesc": "Quanto melhor o cliente, melhor o contrato, melhor a sua comissão.",
-        "goldenTipNote": "É difícil cobrar um valor justo do \"Seu Zé da Padaria\" que fatura R$ 5k/mês. Busque empresas com estrutura, faturamento e capacidade de investimento real.",
+        "goldenTipNote": "Negócios muito pequenos ou informais normalmente não possuem estrutura ou orçamento para projetos sob medida. Busque empresas com estrutura, faturamento e capacidade de investimento real.",
         "avoid": "Evite:",
         "avoidDesc": "Microempresas sem faturamento, negócios informais, quem não tem verba para investir",
         "seek": "Busque:",
@@ -575,7 +580,11 @@
         ],
         "nextStep": "O próximo passo: Call com o Head de Engenharia",
         "nextStepDesc": "O diagnóstico é feito diretamente com a liderança técnica da empresa. Isso garante autoridade, precisão técnica e uma proposta realmente alinhada com as necessidades do cliente.",
-        "nextStepNote": "Seu trabalho já foi feito. A partir daqui, a equipe da Asevedo conduz todo o processo comercial e técnico."
+        "nextStepNote": "Seu trabalho já foi feito. A partir daqui, a equipe da Asevedo conduz todo o processo comercial e técnico.",
+        "afterProposal": {
+          "title": "O que acontece depois da proposta?",
+          "description": "Após a aprovação da proposta, a Asevedo Company executa o projeto conforme escopo definido. O parceiro acompanha o status pela plataforma e recebe a comissão conforme as regras do programa."
+        }
       },
       "bestPractices": {
         "title": "Boas Práticas de Abordagem",
@@ -586,7 +595,8 @@
           "Focar no problema, não na solução",
           "Deixar o lead descrever a própria dor",
           "Direcionar para o site com seu link",
-          "Ser genuíno e empático"
+          "Ser genuíno e empático",
+          "Reforçar que a call é com a liderança técnica"
         ],
         "dontTitle": "O que evitar",
         "dontItems": [
@@ -620,13 +630,13 @@
           { "title": "Material Institucional", "desc": "Apresentações e documentos" },
           { "title": "Conteúdos Explicativos", "desc": "Guias e tutoriais em vídeo" }
         ],
-        "note": "Os materiais serão disponibilizados e atualizados regularmente pela empresa.",
+        "note": "Os materiais serão disponibilizados e atualizados periodicamente pela empresa.",
         "accessButton": "Acessar Materiais Disponíveis"
       },
       "cta": {
         "title": "Pronto para Começar",
         "description": "Você agora conhece o papel estratégico do parceiro, a simplicidade do processo e o foco em diagnóstico e solução.",
-        "summaryTitle": "Resumo para Sucesso",
+        "summaryTitle": "Resumo para o Sucesso",
         "tip1Title": "Busque clientes qualificados",
         "tip1Desc": "Empresas com estrutura e capacidade de investimento",
         "tip2Title": "Seja profissional",
@@ -637,7 +647,11 @@
         "linkCopied": "Link Copiado!",
         "viewReferrals": "Ver Minhas Indicações",
         "accessMaterials": "Acessar Materiais",
-        "finalTip": "Quanto melhor a dor descrita pelo lead, melhor será a solução proposta — e maior será o seu retorno."
+        "finalTip": "Quanto melhor a dor descrita pelo lead, melhor será a solução proposta — e maior será o seu retorno.",
+        "expectations": {
+          "title": "Expectativa Realista",
+          "description": "Parcerias consistentes levam tempo. Indicações qualificadas geram melhores contratos e comissões maiores ao longo do tempo."
+        }
       }
     },
     "status": {
