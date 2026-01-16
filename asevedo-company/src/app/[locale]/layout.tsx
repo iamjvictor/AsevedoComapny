@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { ConditionalLayout } from '@/components/layout';
 import { ThemeProvider } from '@/components/providers';
+import { Suspense } from 'react';
 import { Geist, Geist_Mono, JetBrains_Mono } from 'next/font/google';
 import '../globals.css';
 import type { Metadata } from 'next';
@@ -106,7 +107,9 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <ConditionalLayout>{children}</ConditionalLayout>
+            <Suspense>
+              <ConditionalLayout>{children}</ConditionalLayout>
+            </Suspense>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

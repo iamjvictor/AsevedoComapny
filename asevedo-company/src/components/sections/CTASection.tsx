@@ -13,14 +13,14 @@ import { notifyNewLead } from '@/services/emailService';
 import { Calendar as CalendarIcon, CheckCircle, Send, X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 
 // Horários disponíveis para agendamento (todos menos os já ocupados)
 const DEFAULT_TIME_SLOTS = [
   '08:00', '09:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'
 ];
 
-export function CTASection() {
+function CTASectionInner() {
   const t = useTranslations('CTA');
   const locale = useLocale();
   const searchParams = useSearchParams();
@@ -606,5 +606,13 @@ export function CTASection() {
         </div>
       )}
     </>
+  );
+}
+
+export function CTASection() {
+  return (
+    <Suspense>
+      <CTASectionInner />
+    </Suspense>
   );
 }
