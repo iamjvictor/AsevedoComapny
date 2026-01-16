@@ -6,6 +6,7 @@
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 
+// Fixed argument error for production build
 export default createMiddleware(routing);
 
 export const config = {
