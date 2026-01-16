@@ -7,11 +7,12 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function PartnerPlatformPage() {
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations('PartnerPlatform');
 
   useEffect(() => {
     // TODO: Check if user is authenticated with Supabase
@@ -29,7 +30,7 @@ export default function PartnerPlatformPage() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-4">
         <div className="w-12 h-12 rounded-full border-4 border-violet-500 border-t-transparent animate-spin" />
-        <p className="text-foreground-muted text-sm">Carregando...</p>
+        <p className="text-foreground-muted text-sm">{t('common.loading')}</p>
       </div>
     </div>
   );

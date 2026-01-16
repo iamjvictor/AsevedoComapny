@@ -30,7 +30,7 @@ const translations = {
 
 // Default available time slots
 const DEFAULT_TIME_SLOTS = [
-  '09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'
+  '08:00', '09:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'
 ];
 
 // Tipo para informação de ocupação de datas
@@ -82,7 +82,7 @@ export function Calendar({
   isLoadingBusyDates = false,
   minDate,
   maxDate,
-  disableWeekends = true,
+  disableWeekends = false,
   showTimeSlots = true,
   locale = 'pt-BR',
   className,
@@ -281,14 +281,7 @@ export function Calendar({
               )}
             >
               {date.getDate()}
-              {/* Indicador de ocupação parcial */}
-              {hasSomeBookings && !selected && (
-                <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-amber-500" />
-              )}
-              {/* Indicador de cheio */}
-              {fullyBooked && !selected && (
-                <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-red-500/60" />
-              )}
+              {/* Indicadores de ocupação removidos a pedido do usuário */}
             </button>
           );
         })}

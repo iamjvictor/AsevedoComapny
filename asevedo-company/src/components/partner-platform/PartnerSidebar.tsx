@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useAuth } from '@/providers';
 import {
     Bell,
@@ -62,6 +63,7 @@ export default function PartnerSidebar({
     notificationsOpen = false,
     setNotificationsOpen
 }: PartnerSidebarProps) {
+    const t = useTranslations('PartnerPlatform');
     const router = useRouter();
     const pathname = usePathname();
     const { profile, signOut } = useAuth();
@@ -93,10 +95,10 @@ export default function PartnerSidebar({
     };
 
     const navigation = [
-        { name: 'Dashboard', href: `/${locale}/plataforma-parceiro/dashboard`, icon: Home, key: 'dashboard' },
-        { name: 'Indicações', href: `/${locale}/plataforma-parceiro/indicacoes`, icon: Users, key: 'indicacoes' },
-        { name: 'Comissões', href: `/${locale}/plataforma-parceiro/comissoes`, icon: Wallet, key: 'comissoes' },
-        { name: 'Perfil', href: `/${locale}/plataforma-parceiro/perfil`, icon: User, key: 'perfil' },
+        { name: t('sidebar.dashboard'), href: `/${locale}/plataforma-parceiro/dashboard`, icon: Home, key: 'dashboard' },
+        { name: t('sidebar.referrals'), href: `/${locale}/plataforma-parceiro/indicacoes`, icon: Users, key: 'indicacoes' },
+        { name: t('sidebar.commissions'), href: `/${locale}/plataforma-parceiro/comissoes`, icon: Wallet, key: 'comissoes' },
+        { name: t('sidebar.profile'), href: `/${locale}/plataforma-parceiro/perfil`, icon: User, key: 'perfil' },
     ];
 
     const renderNavItem = (item: { name: string; href: string; icon: any; key: string }) => {
@@ -132,7 +134,7 @@ export default function PartnerSidebar({
                 >
                     <div className="flex items-center gap-3">
                         <BookOpen size={20} />
-                        <span>Comece Aqui</span>
+                        <span>{t('sidebar.getStarted')}</span>
                     </div>
                     {isCurrent && (
                         <ChevronDown 
@@ -157,7 +159,7 @@ export default function PartnerSidebar({
                                     className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-foreground-muted hover:bg-background-tertiary hover:text-foreground transition-colors text-left cursor-pointer"
                                 >
                                     <section.icon size={14} />
-                                    {section.label}
+                                    {t(`sidebar.sectionLabels.${section.id}`)}
                                 </button>
                             ))}
                         </div>
@@ -176,8 +178,8 @@ export default function PartnerSidebar({
                     <div className="flex items-center gap-3 mb-4">
                         <Image src="/AS.png" alt="Logo" width={36} height={36} />
                         <div>
-                            <p className="text-sm font-semibold text-foreground">Portal do Parceiro</p>
-                            <p className="text-xs text-foreground-muted">Asevedo Company</p>
+                            <p className="text-sm font-semibold text-foreground">{t('sidebar.portalTitle')}</p>
+                            <p className="text-xs text-foreground-muted">{t('sidebar.companyName')}</p>
                         </div>
                     </div>
 
@@ -189,7 +191,7 @@ export default function PartnerSidebar({
                             </div>
                             <div>
                                 <p className="text-sm font-medium max-w-[120px]" style={{ color: '#fff' }}>
-                                    {profile?.name || 'Parceiro'}
+                                    {profile?.name || t('profile.partnerBadge')}
                                 </p>
                             </div>
                         </div>
@@ -209,10 +211,10 @@ export default function PartnerSidebar({
                                         <div className="fixed inset-0 z-40" onClick={() => setNotificationsOpen(false)} />
                                         <div className="absolute left-0 mt-2 w-72 bg-background rounded-xl border border-card-border shadow-xl z-50">
                                             <div className="px-4 py-3 border-b border-card-border">
-                                                <p className="font-semibold text-foreground">Notificações</p>
+                                                <p className="font-semibold text-foreground">{t('notifications.title')}</p>
                                             </div>
                                             <div className="p-4 text-center text-foreground-muted text-sm">
-                                                Nenhuma notificação no momento
+                                                {t('notifications.empty')}
                                             </div>
                                         </div>
                                     </>
@@ -231,19 +233,12 @@ export default function PartnerSidebar({
 
                 {/* Bottom Actions */}
                 <div className="px-4 py-4 border-t border-card-border space-y-1">
-                    <Link
-                        href={`/${locale}/plataforma-parceiro/perfil`}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-foreground-secondary hover:bg-background-tertiary hover:text-foreground transition-colors"
-                    >
-                        <Settings size={20} />
-                        Configurações
-                    </Link>
                     <button
                         onClick={handleSignOut}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-foreground-secondary hover:bg-red-500/10 hover:text-red-400 transition-colors"
+                        className="w-full flex items-center cursor-pointer gap-3 px-4 py-3 rounded-lg text-sm font-medium text-foreground-secondary hover:bg-red-500/10 hover:text-red-400 transition-colors"
                     >
                         <LogOut size={20} />
-                        Sair
+                        {t('sidebar.logout')}
                     </button>
                 </div>
             </aside>
@@ -256,7 +251,7 @@ export default function PartnerSidebar({
                         <div className="flex items-center justify-between px-6 py-5 border-b border-card-border">
                             <div className="flex items-center gap-3">
                                 <Image src="/AS.png" alt="Logo" width={32} height={32} />
-                                <span className="text-sm font-semibold text-foreground">Portal do Parceiro</span>
+                                <span className="text-sm font-semibold text-foreground">{t('sidebar.portalTitle')}</span>
                             </div>
                             <button onClick={() => setSidebarOpen(false)}>
                                 <X size={24} className="text-foreground-muted" />

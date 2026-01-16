@@ -11,7 +11,11 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import { routing, type Locale } from '@/i18n/routing';
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  variant?: 'fixed' | 'inline';
+}
+
+export function LanguageSwitcher({ variant = 'fixed' }: LanguageSwitcherProps) {
   const t = useTranslations('LanguageSwitcher');
   const locale = useLocale();
   const router = useRouter();
@@ -19,17 +23,18 @@ export function LanguageSwitcher() {
   const [isPending, startTransition] = useTransition();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Detectar scroll para esconder o switcher
+  // Detectar scroll para esconder o switcher (apenas se for fixed)
   useEffect(() => {
+    if (variant === 'inline') return;
+
     const handleScroll = () => {
-      // Esconde quando scrollou mais de 80% da altura da tela
       setIsScrolled(window.scrollY > window.innerHeight * 0.8);
     };
 
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [variant]);
 
   const switchLocale = (newLocale: Locale) => {
     if (newLocale === locale) return;
@@ -52,21 +57,28 @@ export function LanguageSwitcher() {
     });
   };
 
+  const isFixed = variant === 'fixed';
+
   return (
     <div 
       className={`
-        fixed z-[60] flex items-center bg-background/80 backdrop-blur-xl border border-card-border rounded-full shadow-lg
+        flex items-center bg-background/80 backdrop-blur-xl border border-card-border rounded-full shadow-lg
         transition-all duration-300
-        ${isScrolled 
+        ${isFixed ? 'fixed z-[60]' : 'relative'}
+        ${isFixed && isScrolled 
           ? 'opacity-0 translate-y-2 pointer-events-none' 
           : 'opacity-100 translate-y-0 pointer-events-auto'
         }
       `}
-      style={{
+      style={isFixed ? {
         top: 'calc(var(--logo-height) + var(--space-2))',
         right: 'var(--space-3)',
         gap: 'var(--space-1)',
         padding: 'var(--space-1)',
+      } : {
+        gap: '8px',
+        padding: '4px',
+        width: 'fit-content'
       }}
     >
       <button
@@ -81,14 +93,14 @@ export function LanguageSwitcher() {
           ${isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         `}
         style={{
-          gap: 'var(--space-1)',
-          padding: 'var(--space-2) var(--space-3)',
-          fontSize: 'var(--text-sm)',
+          gap: '8px',
+          padding: '8px 16px',
+          fontSize: '14px',
         }}
         aria-label="Mudar para Português"
       >
-        <span style={{ fontSize: 'var(--text-base)' }}>🇧🇷</span>
-        <span className="hidden sm:inline">{t('portuguese')}</span>
+        <span style={{ fontSize: '16px' }}>🇧🇷</span>
+        <span>{t('portuguese')}</span>
       </button>
       
       <button
@@ -103,14 +115,14 @@ export function LanguageSwitcher() {
           ${isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         `}
         style={{
-          gap: 'var(--space-1)',
-          padding: 'var(--space-2) var(--space-3)',
-          fontSize: 'var(--text-sm)',
+          gap: '8px',
+          padding: '8px 16px',
+          fontSize: '14px',
         }}
         aria-label="Switch to English"
       >
-        <span style={{ fontSize: 'var(--text-base)' }}>🇺🇸</span>
-        <span className="hidden sm:inline">{t('english')}</span>
+        <span style={{ fontSize: '16px' }}>🇺🇸</span>
+        <span>{t('english')}</span>
       </button>
     </div>
   );

@@ -195,7 +195,7 @@ export function Header() {
                 >
                   <div style={{ padding: 'var(--space-2) 0' }}>
                     <Link
-                      href={`/${locale}/cliente`}
+                      href={`/${locale}/login?redirect=cliente`}
                       className="flex items-center text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
                       style={{ gap: 'var(--space-3)', padding: 'var(--space-3) var(--space-4)', fontSize: 'var(--text-sm)' }}
                       onClick={() => setIsMenuOpen(false)}

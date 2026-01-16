@@ -40,6 +40,38 @@
       "loading": "Loading..."
     }
   },
+  "ForgotPassword": {
+    "title": "Recover your password",
+    "subtitle": "Enter your email to receive recovery instructions.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "submitButton": "Send instructions",
+    "submitting": "Sending...",
+    "backToLogin": "Back to login",
+    "success": {
+      "title": "Email sent!",
+      "message": "We've sent recovery instructions to the provided email.",
+      "checkSpam": "Don't forget to check your spam folder."
+    },
+    "error": "Error sending email. Please check if the address is correct."
+  },
+  "ResetPassword": {
+    "title": "New Password",
+    "subtitle": "Create a new password for your account.",
+    "passwordLabel": "New Password",
+    "passwordPlaceholder": "Minimum 6 characters",
+    "confirmLabel": "Confirm New Password",
+    "confirmPlaceholder": "Repeat the password",
+    "submitButton": "Reset Password",
+    "submitting": "Resetting...",
+    "success": {
+      "title": "Password changed!",
+      "message": "Your password has been reset successfully. You can now log in."
+    },
+    "error": "Error resetting password. The link may have expired.",
+    "matchError": "Passwords do not match.",
+    "samePasswordError": "New password must be different from the current one."
+  },
   "Header": {
     "getQuote": "Get a Quote",
     "clientArea": "Client Area",
@@ -343,9 +375,21 @@
     },
     "sidebar": {
       "portalTitle": "Partner Portal",
+      "companyName": "Asevedo Company",
       "dashboard": "Dashboard",
       "referrals": "Referrals",
       "commissions": "Commissions",
+      "getStarted": "Get Started",
+      "sectionLabels": {
+        "introducao": "Introduction",
+        "servicos": "Our Services",
+        "identificando-dor": "Identifying Pain",
+        "processo": "The Process",
+        "boas-praticas": "Best Practices",
+        "estrategias": "Strategies",
+        "materiais": "Materials",
+        "proximo-passo": "Next Step"
+      },
       "profile": "Profile",
       "settings": "Settings",
       "logout": "Logout"
@@ -353,33 +397,282 @@
     "dashboard": {
       "title": "Dashboard",
       "welcome": "Welcome back",
+      "yourReferrals": "Your Referrals",
+      "referralsSummary": "Summary of your referrals",
       "totalReferrals": "Total referrals",
-      "activeReferrals": "In progress",
-      "paidCommissions": "Paid commissions",
+      "closedDeals": "Closed",
+      "inProgress": "In progress",
       "conversionRate": "Conversion rate",
-      "recentReferrals": "Recent Referrals",
+      "viewHistory": "View history",
+      "bonusGoal": "Bonus Goal",
+      "contractsOf": "contracts",
+      "bonusUnlocked": "🎉 Bonus unlocked!",
+      "contractsLeft": "🔓 {count} left to unlock the bonus",
+      "redeemBonus": "Redeem Bonus",
+      "yourPartnerLink": "Your partner link",
+      "copyLink": "Copy link",
+      "copied": "Copied!",
+      "useThisLink": "Use this link to refer projects. Your code:",
+      "referralsSummaryTitle": "Referrals Summary",
       "viewAll": "View all",
-      "pendingCommissions": "Pending commissions",
-      "pendingMessage": "You have commissions awaiting approval. Payment is processed after contract confirmation.",
-      "quickActions": "Quick Actions",
-      "newReferral": "New Referral",
-      "viewStatement": "View Statement"
+      "yourReferralsList": "Your Referrals",
+      "noReferralsYet": "No referrals yet",
+      "shareYourLink": "Share your link to start referring projects!",
+      "lead": "Lead",
+      "date": "Date",
+      "status": "Status",
+      "contact": "Contact",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "daysAgo": "days ago",
+      "weeksAgo": "weeks ago"
+    },
+    "commissions": {
+      "title": "Commissions",
+      "subtitle": "Track your referral commissions",
+      "totalCommissions": "Total Commissions",
+      "availableForWithdraw": "Available for Withdrawal",
+      "availableTooltip": "The available amount corresponds to your commission on what the client has already paid. Since contracts can be paid in installments, the commission is released as payments are made.",
+      "pending": "Pending",
+      "awaitingPayment": "Awaiting client payment",
+      "leadContract": "Lead / Contract",
+      "contractValue": "Contract Value",
+      "totalCommission": "Total Commission",
+      "available": "Available",
+      "action": "Action",
+      "paid": "Paid",
+      "withdraw": "Withdraw",
+      "awaitingPaymentShort": "Awaiting payment",
+      "noCommissionsYet": "No commissions yet",
+      "noCommissionsMessage": "When your leads close contracts, your commissions will appear here.",
+      "howItWorks": "How it works:",
+      "howItWorksDescription": "You earn commission on every contract closed through your referral. The amount available for withdrawal increases as the client makes payments.",
+      "entryPrize": {
+        "title": "ENTRY PRIZE",
+        "subtitle": "Exclusive Welcome Bonus",
+        "timeRemaining": "Time Remaining",
+        "progress": "Progress",
+        "goal": "Goal",
+        "ended": "Ended",
+        "startOfJourney": "Start of Journey",
+        "bonusUnlocked": "Bonus Unlocked 🎁",
+        "congratulations": "🎉 CONGRATULATIONS! YOU ACHIEVED THE ENTRY CHALLENGE!",
+        "redeemPrize": "Redeem Prize",
+        "modalTitle": "Entry Prize",
+        "modalDescription": "We want to reward our new partners who arrive with full focus! The challenge is simple:",
+        "step1": "Capture qualified leads in your first 30 days on the platform.",
+        "step2": "If the contracts generated by these leads total $3,000 in commissions for you...",
+        "step3": "You get a Special Cash Bonus on top of your regular commissions!",
+        "note": "*Important: What counts is the lead capture date. Even if the contract takes more than 30 days to close, it counts towards the challenge if the lead was created in your first month.",
+        "letsGo": "Let's go! 🚀"
+      }
+    },
+    "referrals": {
+      "title": "Referrals",
+      "subtitle": "Track all your referrals",
+      "searchPlaceholder": "Search by name or email...",
+      "filterAll": "All",
+      "filterNew": "New",
+      "filterInProgress": "In Progress",
+      "filterClosed": "Closed",
+      "filterLost": "Lost",
+      "noResults": "No referrals found",
+      "noResultsMessage": "Try adjusting the filters or search term.",
+      "showing": "Showing {filtered} of {total} referrals"
+    },
+    "profile": {
+      "title": "Profile",
+      "personalInfo": "Personal Information",
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "memberSince": "Member since",
+      "languagePreferences": "Language & Preferences",
+      "languageDescription": "Choose your preferred language for navigating the platform.",
+      "paymentInfo": "Payment Information",
+      "pixKey": "PIX Key",
+      "pixKeyPlaceholder": "CPF, Email, Phone or Random Key",
+      "bank": "Bank",
+      "bankPlaceholder": "Bank name",
+      "agency": "Agency",
+      "agencyPlaceholder": "0000",
+      "account": "Account",
+      "accountPlaceholder": "00000-0",
+      "security": "Security",
+      "changePassword": "Change Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "securityTip": "Keep your account secure by updating your password regularly.",
+      "profileUpdated": "Profile updated successfully!",
+      "passwordChanged": "Password changed successfully!",
+      "passwordsDontMatch": "Passwords do not match",
+      "passwordMinLength": "New password must be at least 6 characters",
+      "partnerBadge": "Partner",
+      "activeBadge": "Active",
+      "codeCopied": "Copied!"
+    },
+    "getStarted": {
+      "title": "Partner Manual",
+      "subtitle": "Your complete guide to referring projects",
+      "intro": {
+        "title": "The Role of the Commercial Partner",
+        "description1": "As a commercial partner of Asevedo Company, you act as a strategic bridge between companies with real problems and our specialized engineering team.",
+        "description2": "Your role is not to sell services, negotiate prices, or execute projects. Your focus is to identify opportunities and direct qualified leads to our team.",
+        "mainObjective": "Your main objective:",
+        "mainGoal": "Identify a real pain point and guide the lead to Asevedo Company's technical diagnosis.",
+        "step1": "You identify the pain point",
+        "step2": "The responsible engineer performs the diagnosis",
+        "step3": "The company proposes the solution and budget"
+      },
+      "services": {
+        "title": "What Types of Problems We Solve",
+        "description": "Understand the types of pain points our team solves. Think about problems, not technology.",
+        "automation": { "title": "Process Automation", "desc": "Repetitive manual work, rework, time-consuming tasks" },
+        "integration": { "title": "System Integration", "desc": "Disconnected tools, duplicate data, lack of synchronization" },
+        "systems": { "title": "Internal Systems", "desc": "Lack of control, decisions without data, disorganized processes" },
+        "maintenance": { "title": "Software Maintenance", "desc": "Legacy systems, recurring bugs, lack of technical support" },
+        "ai": { "title": "Applied AI", "desc": "Manual data analysis, inaccurate predictions, overloaded customer service" },
+        "tip": "Remember: The partner doesn't offer services. They identify problems."
+      },
+      "identifying": {
+        "title": "How to Identify a Good Opportunity",
+        "description": "Pain points arise in normal conversations, observations, and everyday complaints. Stay alert to the signs.",
+        "signsTitle": "Signs of pain in companies:",
+        "signs": [
+          "Manual and repetitive processes",
+          "Excessive spreadsheets for control",
+          "Slow or outdated systems",
+          "Lack of operational visibility",
+          "Owners overloaded with operational tasks",
+          "Information scattered in various places",
+          "Frequent errors due to lack of automation",
+          "Difficulty scaling the business"
+        ],
+        "checklistTitle": "Qualification Checklist",
+        "checklistDesc": "If the company has 2 or more of these points, it's a qualified opportunity for referral.",
+        "goldenTip": "Golden Tip: Lead Quality",
+        "goldenTipDesc": "The better the client, the better the contract, the better your commission.",
+        "goldenTipNote": "It's hard to charge a fair price from a small bakery owner earning $1k/month. Look for companies with structure, revenue, and real investment capacity.",
+        "avoid": "Avoid:",
+        "avoidDesc": "Micro-enterprises without revenue, informal businesses, those without budget to invest",
+        "seek": "Look for:",
+        "seekDesc": "Structured SMEs, growing companies, operations with real bottlenecks"
+      },
+      "process": {
+        "title": "How the Process Works",
+        "description": "You refer, we take care of the rest. Your role ends when the lead schedules the call.",
+        "steps": [
+          { "title": "Identifies the pain", "desc": "Notices the problem" },
+          { "title": "Introduces Asevedo", "desc": "Refers the company" },
+          { "title": "Lead accesses link", "desc": "Uses your link" },
+          { "title": "Fills out form", "desc": "Describes the pain" },
+          { "title": "Schedules call", "desc": "Chooses time" },
+          { "title": "Technical call", "desc": "Head of Engineering" },
+          { "title": "Proposal", "desc": "Scope and value" }
+        ],
+        "nextStep": "Next step: Call with the Head of Engineering",
+        "nextStepDesc": "The diagnosis is made directly with the company's technical leadership. This ensures authority, technical precision, and a proposal truly aligned with the client's needs.",
+        "nextStepNote": "Your work is already done. From here, the Asevedo team handles the entire commercial and technical process."
+      },
+      "bestPractices": {
+        "title": "Best Approach Practices",
+        "doTitle": "What to do",
+        "doItems": [
+          "Listen more than talk",
+          "Ask simple questions about the day-to-day",
+          "Focus on the problem, not the solution",
+          "Let the lead describe their own pain",
+          "Direct to the site with your link",
+          "Be genuine and empathetic"
+        ],
+        "dontTitle": "What to avoid",
+        "dontItems": [
+          "Promise price or deadline",
+          "Explain technologies or languages",
+          "Try to close the contract yourself",
+          "Collect deep technical information",
+          "Speak badly about competitors",
+          "Pressure for immediate decision"
+        ]
+      },
+      "strategies": {
+        "title": "Prospecting Strategies",
+        "personal": { "title": "Personal Prospecting", "items": ["Natural conversations", "Networking", "Close contacts", "Organic referral"] },
+        "network": { "title": "Network of Contacts", "items": ["Professionals from other areas", "Known entrepreneurs", "Strategic partners", "Business groups"] },
+        "darkContent": { 
+          "title": "Dark Content", 
+          "label": "Most scalable strategy",
+          "desc": "Create short videos without showing your face, focusing on triggering the entrepreneur's pain.",
+          "items": ["Dark background + text", "Simple narration", "Focus on pain", "CTA to your link"]
+        },
+        "local": { "title": "Local Prospecting", "items": ["Calls to establishments", "In-person visits", "Traditional companies", "Local businesses"] },
+        "goal": "The goal is not to sell, it's to spark interest in the diagnosis."
+      },
+      "materials": {
+        "title": "Partner Materials",
+        "description": "Asevedo Company provides official materials to facilitate your prospecting.",
+        "items": [
+          { "title": "Creative Pack", "desc": "Ready Reels, Shorts and TikToks" },
+          { "title": "Visual Templates", "desc": "Dark art for social media" },
+          { "title": "Institutional Material", "desc": "Presentations and documents" },
+          { "title": "Explanatory Content", "desc": "Video guides and tutorials" }
+        ],
+        "note": "Materials will be made available and regularly updated by the company.",
+        "accessButton": "Access Available Materials"
+      },
+      "cta": {
+        "title": "Ready to Start",
+        "description": "You now know the partner's strategic role, the simplicity of the process, and the focus on diagnosis and solution.",
+        "summaryTitle": "Summary for Success",
+        "tip1Title": "Look for qualified clients",
+        "tip1Desc": "Companies with structure and investment capacity",
+        "tip2Title": "Be professional",
+        "tip2Desc": "Leave the diagnosis to the Head of Engineering",
+        "tip3Title": "Quality = Commission",
+        "tip3Desc": "Better client = Better contract = Better earnings",
+        "copyLink": "Copy Referral Link",
+        "linkCopied": "Link Copied!",
+        "viewReferrals": "View My Referrals",
+        "accessMaterials": "Access Materials",
+        "finalTip": "The better the pain described by the lead, the better the proposed solution — and the greater your return."
+      }
     },
     "status": {
-      "pending": "Pending",
-      "diagnosis": "Diagnosis",
-      "negotiation": "Negotiation",
+      "new": "New",
+      "inContact": "In Contact",
+      "qualified": "Qualified",
+      "proposalSent": "Proposal Sent",
+      "negotiation": "In Negotiation",
       "closed": "Closed",
       "lost": "Lost"
     },
     "notifications": {
-      "title": "Notifications"
+      "title": "Notifications",
+      "empty": "No notifications"
     },
-    "features": {
-      "realTimeMetrics": "Real-time metrics dashboard",
-      "referralHistory": "Complete referral history",
-      "commissionTracking": "Commission tracking",
-      "directCommunication": "Direct team communication"
+    "modals": {
+      "bonusRedeemed": {
+        "title": "Congratulations! 🎉",
+        "message": "You just redeemed your bonus for hitting the 5 contracts goal. Your dedication is incredible!",
+        "note": "We received your request and will contact you soon to process the payment.",
+        "button": "Got it, thank you!"
+      },
+      "prizeRedeemed": {
+        "title": "Incredible! 🎉",
+        "message": "You overcame the 30-day challenge and proved you're an elite partner!",
+        "note": "Congratulations, you will receive a special bonus, wait for us to contact you to process the payment!",
+        "button": "Got it, thank you!"
+      }
+    },
+    "common": {
+      "loading": "Loading...",
+      "error": "Error",
+      "success": "Success",
+      "confirm": "Confirm",
+      "back": "Back"
     }
   }
 }

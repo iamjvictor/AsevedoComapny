@@ -37,22 +37,24 @@ interface Lead {
     contacted_at: string | null;
 }
 
-// Status configuration with colors and labels
-const statusConfig: Record<string, { bg: string; text: string; label: string; icon: string }> = {
-    novo: { bg: 'bg-yellow-500/20', text: 'text-white', label: 'Novo', icon: '🟡' },
-    em_contato: { bg: 'bg-blue-500/20', text: 'text-white', label: 'Em Contato', icon: '🔵' },
-    qualificado: { bg: 'bg-cyan-500/20', text: 'text-white', label: 'Qualificado', icon: '✅' },
-    proposta_enviada: { bg: 'bg-purple-500/20', text: 'text-white', label: 'Proposta Enviada', icon: '📋' },
-    negociacao: { bg: 'bg-indigo-500/20', text: 'text-white', label: 'Em Negociação', icon: '🤝' },
-    fechado: { bg: 'bg-emerald-500/20', text: 'text-white', label: 'Fechado', icon: '🟢' },
-    perdido: { bg: 'bg-red-500/20', text: 'text-white', label: 'Não Avançou', icon: '❌' },
-};
+const getStatusConfig = (t: any): Record<string, { bg: string; text: string; label: string; icon: string }> => ({
+    novo: { bg: 'bg-yellow-500/20', text: 'text-white', label: t('status.new'), icon: '🟡' },
+    em_contato: { bg: 'bg-blue-500/20', text: 'text-white', label: t('status.inContact'), icon: '🔵' },
+    qualificado: { bg: 'bg-cyan-500/20', text: 'text-white', label: t('status.qualified'), icon: '✅' },
+    proposta_enviada: { bg: 'bg-purple-500/20', text: 'text-white', label: t('status.proposalSent'), icon: '📋' },
+    negociacao: { bg: 'bg-indigo-500/20', text: 'text-white', label: t('status.negotiation'), icon: '🤝' },
+    fechado: { bg: 'bg-emerald-500/20', text: 'text-white', label: t('status.closed'), icon: '🟢' },
+    perdido: { bg: 'bg-red-500/20', text: 'text-white', label: t('status.lost'), icon: '❌' },
+});
 
 export default function IndicacoesPage() {
     const t = useTranslations('PartnerPlatform');
     const locale = useLocale();
     const router = useRouter();
     const { profile, isLoading: authLoading, isAuthenticated } = useAuth();
+
+    // Status config with translations
+    const statusConfig = getStatusConfig(t);
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
@@ -137,11 +139,11 @@ export default function IndicacoesPage() {
         const diffMs = now.getTime() - date.getTime();
         const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-        if (diffDays === 0) return 'Hoje';
-        if (diffDays === 1) return 'Ontem';
-        if (diffDays < 7) return `${diffDays} dias atrás`;
-        if (diffDays < 30) return `${Math.floor(diffDays / 7)} semanas atrás`;
-        return date.toLocaleDateString('pt-BR');
+        if (diffDays === 0) return t('dashboard.today');
+        if (diffDays === 1) return t('dashboard.yesterday');
+        if (diffDays < 7) return `${diffDays} ${t('dashboard.daysAgo')}`;
+        if (diffDays < 30) return `${Math.floor(diffDays / 7)} ${t('dashboard.weeksAgo')}`;
+        return date.toLocaleDateString(locale === 'en' ? 'en-US' : 'pt-BR');
     };
 
     // Verifica se lead precisa de remarketing
@@ -178,7 +180,7 @@ export default function IndicacoesPage() {
             <div className="min-h-screen flex items-center justify-center bg-background">
                 <div className="flex flex-col items-center gap-4">
                     <Loader2 size={40} className="animate-spin text-violet-500" />
-                    <p className="text-foreground-muted">Carregando...</p>
+                    <p className="text-foreground-muted">{t('common.loading')}</p>
                 </div>
             </div>
         );
@@ -208,7 +210,7 @@ export default function IndicacoesPage() {
                     >
                         <Menu size={24} className="text-foreground" />
                     </button>
-                    <p className="text-sm font-medium text-foreground">Indicações</p>
+                    <p className="text-sm font-medium text-foreground">{t('referrals.title')}</p>
                     <div className="w-10" />
                 </div>
 
@@ -217,22 +219,22 @@ export default function IndicacoesPage() {
                     {/* Header */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                         <div>
-                            <h1 className="text-2xl font-bold text-foreground">Indicações</h1>
-                            <p className="text-foreground-muted">Todas as suas indicações de projetos</p>
+                            <h1 className="text-2xl font-bold text-foreground">{t('referrals.title')}</h1>
+                            <p className="text-foreground-muted">{t('referrals.subtitle')}</p>
                         </div>
 
                         {/* Stats */}
                         <div className="flex gap-4">
                             <div className="px-4 py-2 rounded-lg bg-background-secondary border border-card-border">
-                                <p className="text-xs text-foreground-muted">Total</p>
+                                <p className="text-xs text-foreground-muted">{t('dashboard.totalReferrals')}</p>
                                 <p className="text-xl font-bold text-foreground">{stats.total}</p>
                             </div>
                             <div className="px-4 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                                <p className="text-xs text-emerald-400">Fechados</p>
+                                <p className="text-xs text-emerald-400">{t('dashboard.closedDeals')}</p>
                                 <p className="text-xl font-bold text-emerald-400">{stats.fechados}</p>
                             </div>
                             <div className="px-4 py-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-                                <p className="text-xs text-yellow-400">Em andamento</p>
+                                <p className="text-xs text-yellow-400">{t('dashboard.inProgress')}</p>
                                 <p className="text-xl font-bold text-yellow-400">{stats.emAndamento}</p>
                             </div>
                         </div>
@@ -245,7 +247,7 @@ export default function IndicacoesPage() {
                             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground-muted" />
                             <input
                                 type="text"
-                                placeholder="Buscar por nome ou email..."
+                                placeholder={t('referrals.searchPlaceholder')}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full pl-10 pr-4 py-2.5 bg-background-secondary border border-card-border rounded-lg text-foreground placeholder:text-foreground-muted focus:outline-none focus:border-violet-500 transition-colors"
@@ -258,14 +260,14 @@ export default function IndicacoesPage() {
                             onChange={(e) => setStatusFilter(e.target.value)}
                             className="px-4 py-2.5 bg-background-secondary border border-card-border rounded-lg text-foreground focus:outline-none focus:border-violet-500 transition-colors"
                         >
-                            <option value="all">Todos os status</option>
-                            <option value="novo">Novo</option>
-                            <option value="em_contato">Em Contato</option>
-                            <option value="qualificado">Qualificado</option>
-                            <option value="proposta_enviada">Proposta Enviada</option>
-                            <option value="negociacao">Em Negociação</option>
-                            <option value="fechado">Fechado</option>
-                            <option value="perdido">Não Avançou</option>
+                            <option value="all">{t('referrals.filterAll')}</option>
+                            <option value="novo">{t('status.new')}</option>
+                            <option value="em_contato">{t('status.inContact')}</option>
+                            <option value="qualificado">{t('status.qualified')}</option>
+                            <option value="proposta_enviada">{t('status.proposalSent')}</option>
+                            <option value="negociacao">{t('status.negotiation')}</option>
+                            <option value="fechado">{t('status.closed')}</option>
+                            <option value="perdido">{t('status.lost')}</option>
                         </select>
                     </div>
 
@@ -281,13 +283,13 @@ export default function IndicacoesPage() {
                                     <Users size={48} className="mx-auto text-foreground-muted mb-4" />
                                     <p className="text-foreground-muted mb-2">
                                         {searchTerm || statusFilter !== 'all'
-                                            ? 'Nenhuma indicação encontrada com esses filtros'
-                                            : 'Nenhuma indicação ainda'
+                                            ? t('referrals.noResults')
+                                            : t('dashboard.noReferralsYet')
                                         }
                                     </p>
                                     {!searchTerm && statusFilter === 'all' && (
                                         <p className="text-sm text-foreground-muted">
-                                            Compartilhe seu link para começar a indicar projetos!
+                                            {t('dashboard.shareYourLink')}
                                         </p>
                                     )}
                                 </div>
@@ -295,11 +297,11 @@ export default function IndicacoesPage() {
                                 <table className="w-full">
                                     <thead className="bg-background-tertiary">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Lead</th>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Data</th>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Status</th>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Contato</th>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Ações</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('dashboard.lead')}</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('dashboard.date')}</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('dashboard.status')}</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('dashboard.contact')}</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('commissions.action')}</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-card-border">
@@ -311,7 +313,7 @@ export default function IndicacoesPage() {
                                                         <p className="font-medium text-foreground">{lead.name}</p>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <p className="text-sm text-foreground">{new Date(lead.created_at).toLocaleDateString('pt-BR')}</p>
+                                                        <p className="text-sm text-foreground">{new Date(lead.created_at).toLocaleDateString(locale === 'en' ? 'en-US' : 'pt-BR')}</p>
                                                         <p className="text-xs text-foreground-muted">{formatRelativeDate(lead.created_at)}</p>
                                                     </td>
                                                     <td className="px-6 py-4">
@@ -348,7 +350,7 @@ export default function IndicacoesPage() {
                     {/* Results count */}
                     {!isLoadingLeads && filteredLeads.length > 0 && (
                         <p className="text-sm text-foreground-muted mt-4">
-                            Mostrando {filteredLeads.length} de {leads.length} indicações
+                            {t('referrals.showing', { filtered: filteredLeads.length, total: leads.length })}
                         </p>
                     )}
                 </main>

@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/providers';
 import { supabase } from '@/components/clients/Supabase';
 import PartnerSidebar from '@/components/partner-platform/PartnerSidebar';
+import { notifyBonusUnlocked } from '@/services/emailService';
 import {
   Bell,
   Check,
@@ -28,6 +29,8 @@ import {
   TrendingUp,
   User,
   Users,
+  X,
+  Trophy,
 } from 'lucide-react';
 
 // Interface para leads/indicações
@@ -43,16 +46,15 @@ interface Lead {
   created_at: string;
 }
 
-// Status configuration with colors and labels
-const statusConfig: Record<string, { bg: string; text: string; label: string; icon: string }> = {
-  novo: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Novo', icon: '🟡' },
-  em_contato: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Em Contato', icon: '🔵' },
-  qualificado: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', label: 'Qualificado', icon: '✅' },
-  proposta_enviada: { bg: 'bg-purple-500/20', text: 'text-purple-400', label: 'Proposta Enviada', icon: '📄' },
-  negociacao: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: 'Em Negociação', icon: '🤝' },
-  fechado: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', label: 'Fechado', icon: '🟢' },
-  perdido: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Não Avançou', icon: '❌' },
-};
+const getStatusConfig = (t: any): Record<string, { bg: string; text: string; label: string; icon: string }> => ({
+  novo: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('status.new'), icon: '🟡' },
+  em_contato: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('status.inContact'), icon: '🔵' },
+  qualificado: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', label: t('status.qualified'), icon: '✅' },
+  proposta_enviada: { bg: 'bg-purple-500/20', text: 'text-purple-400', label: t('status.proposalSent'), icon: '📄' },
+  negociacao: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: t('status.negotiation'), icon: '🤝' },
+  fechado: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', label: t('status.closed'), icon: '🟢' },
+  perdido: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('status.lost'), icon: '❌' },
+});
 
 export default function PartnerDashboardPage() {
   const t = useTranslations('PartnerPlatform');
@@ -60,12 +62,18 @@ export default function PartnerDashboardPage() {
   const router = useRouter();
   const { profile, isLoading: authLoading, isAuthenticated } = useAuth();
 
+  // Status config with translations
+  const statusConfig = getStatusConfig(t);
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [bonusModalOpen, setBonusModalOpen] = useState(false);
+  const [isRedeeming, setIsRedeeming] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
 
   // Estados para dados reais
   const [leads, setLeads] = useState<Lead[]>([]);
+  const [contractCount, setContractCount] = useState(0);
   const [isLoadingLeads, setIsLoadingLeads] = useState(true);
 
   // Gera o link de indicação baseado no código do parceiro
@@ -113,10 +121,31 @@ export default function PartnerDashboardPage() {
       setIsLoadingLeads(false);
     }
 
+    // Busca contagem de contratos
+    const fetchContractCount = async () => {
+      if (!profile?.id) return;
+      try {
+        const { count, error } = await supabase
+          .from('contracts')
+          .select('*', { count: 'exact', head: true })
+          .eq('partner_id', profile.id);
+
+        if (!error && count !== null) {
+          setContractCount(count);
+        }
+      } catch (err) {
+        console.error('Erro ao buscar contagem de contratos:', err);
+      }
+    };
+
+    if (profile?.id) {
+      fetchContractCount();
+    }
+
     return () => {
       isMounted = false;
     };
-  }, [profile?.code]);
+  }, [profile?.code, profile?.id]);
 
   // Calcula estatísticas baseadas nos leads reais
   const stats = useMemo(() => {
@@ -133,15 +162,15 @@ export default function PartnerDashboardPage() {
     };
   }, [leads]);
 
-  // Progresso de bônus (meta de 5 contratos)
+  // Progresso de bônus (meta de 5 contratos reais)
   const bonusProgress = useMemo(() => {
-    const closedDeals = stats.fechados;
+    const closedDeals = contractCount;
     const targetDeals = 5;
     const percentage = Math.min((closedDeals / targetDeals) * 100, 100);
     const bonusUnlocked = closedDeals >= targetDeals;
 
     return { closedDeals, targetDeals, percentage, bonusUnlocked };
-  }, [stats.fechados]);
+  }, [contractCount]);
 
   // Redirect se não autenticado
   useEffect(() => {
@@ -157,6 +186,26 @@ export default function PartnerDashboardPage() {
     setTimeout(() => setLinkCopied(false), 2000);
   };
 
+  const handleRedeemBonus = async () => {
+    if (!profile) return;
+    
+    setIsRedeeming(true);
+    try {
+      await notifyBonusUnlocked({
+        name: profile.name || 'Parceiro sem nome',
+        phone: profile.phone || 'N/A',
+        pix: profile.pix_key || 'Não cadastrado',
+        code: String(profile.code || 'N/A')
+      });
+      setBonusModalOpen(true);
+    } catch (error) {
+      console.error('Erro ao resgatar bônus:', error);
+      alert('Ocorreu um erro ao processar seu resgate. Por favor, tente novamente.');
+    } finally {
+      setIsRedeeming(false);
+    }
+  };
+
   const handleShareWhatsApp = () => {
     if (!referralLink) return;
     const text = encodeURIComponent(`Conheça a Asevedo Company! Acesse: ${referralLink}`);
@@ -170,11 +219,11 @@ export default function PartnerDashboardPage() {
     const diffMs = now.getTime() - date.getTime();
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffDays === 0) return 'Hoje';
-    if (diffDays === 1) return 'Ontem';
-    if (diffDays < 7) return `${diffDays} dias atrás`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} semanas atrás`;
-    return date.toLocaleDateString('pt-BR');
+    if (diffDays === 0) return t('dashboard.today');
+    if (diffDays === 1) return t('dashboard.yesterday');
+    if (diffDays < 7) return `${diffDays} ${t('dashboard.daysAgo')}`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} ${t('dashboard.weeksAgo')}`;
+    return date.toLocaleDateString(locale === 'en' ? 'en-US' : 'pt-BR');
   };
 
   // Loading state
@@ -183,7 +232,7 @@ export default function PartnerDashboardPage() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-4">
           <Loader2 size={40} className="animate-spin text-violet-500" />
-          <p className="text-foreground-muted">Carregando...</p>
+          <p className="text-foreground-muted">{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -239,26 +288,26 @@ export default function PartnerDashboardPage() {
                   <DollarSign size={24} className="text-violet-400" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-foreground">Suas Indicações</h2>
-                  <p className="text-sm text-foreground-muted">Resumo das suas indicações</p>
+                  <h2 className="text-lg font-semibold text-foreground">{t('dashboard.yourReferrals')}</h2>
+                  <p className="text-sm text-foreground-muted">{t('dashboard.referralsSummary')}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div>
-                  <p className="text-sm text-foreground-muted mb-1">Total de indicações</p>
+                  <p className="text-sm text-foreground-muted mb-1">{t('dashboard.totalReferrals')}</p>
                   <p className="text-3xl font-bold text-foreground">
                     {stats.total}
                   </p>
                 </div>
                 <div className="sm:border-l sm:border-card-border sm:pl-6">
-                  <p className="text-sm text-foreground-muted mb-1">Fechados</p>
+                  <p className="text-sm text-foreground-muted mb-1">{t('dashboard.closedDeals')}</p>
                   <p className="text-3xl font-bold text-emerald-400">
                     {stats.fechados}
                   </p>
                 </div>
                 <div className="sm:border-l sm:border-card-border sm:pl-6">
-                  <p className="text-sm text-foreground-muted mb-1">Em andamento</p>
+                  <p className="text-sm text-foreground-muted mb-1">{t('dashboard.inProgress')}</p>
                   <p className="text-3xl font-bold text-yellow-400">
                     {stats.emAndamento}
                   </p>
@@ -271,7 +320,7 @@ export default function PartnerDashboardPage() {
                   className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-500/20 hover:bg-violet-500/30 text-violet-400 text-sm font-medium transition-colors"
                 >
                   <History size={16} />
-                  Ver histórico
+                  {t('dashboard.viewHistory')}
                 </Link>
               </div>
             </div>
@@ -282,13 +331,13 @@ export default function PartnerDashboardPage() {
                 <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
                   <Gift size={20} className="text-purple-400" />
                 </div>
-                <h3 className="font-semibold text-foreground">Meta de Bônus</h3>
+                <h3 className="font-semibold text-foreground">{t('dashboard.bonusGoal')}</h3>
               </div>
 
               {/* Progress Bar */}
               <div className="mb-4">
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-foreground-muted">{bonusProgress.closedDeals} de {bonusProgress.targetDeals} contratos</span>
+                  <span className="text-foreground-muted">{bonusProgress.closedDeals} de {bonusProgress.targetDeals} {t('dashboard.contractsOf')}</span>
                   <span className="text-violet-400 font-medium">{bonusProgress.percentage.toFixed(0)}%</span>
                 </div>
                 <div className="w-full h-3 bg-background-tertiary rounded-full overflow-hidden">
@@ -306,13 +355,32 @@ export default function PartnerDashboardPage() {
                 <span className="text-purple-400 font-medium">5 🎁</span>
               </div>
 
-              <div className="p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
-                <p className="text-sm text-foreground">
-                  {bonusProgress.bonusUnlocked
-                    ? '🎉 Bônus desbloqueado!'
-                    : `🔓 Faltam ${bonusProgress.targetDeals - bonusProgress.closedDeals} para desbloquear o bônus`
-                  }
-                </p>
+              <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                <div className="flex flex-col gap-3">
+                  <p className="text-sm text-foreground">
+                    {bonusProgress.bonusUnlocked
+                      ? t('dashboard.bonusUnlocked')
+                      : t('dashboard.contractsLeft', { count: bonusProgress.targetDeals - bonusProgress.closedDeals })
+                    }
+                  </p>
+                  
+                  {bonusProgress.bonusUnlocked && (
+                    <button
+                      onClick={handleRedeemBonus}
+                      disabled={isRedeeming}
+                      className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
+                    >
+                      {isRedeeming ? (
+                        <Loader2 size={18} className="animate-spin" />
+                      ) : (
+                        <>
+                          <Gift size={18} />
+                          {t('dashboard.redeemBonus')}
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -326,7 +394,7 @@ export default function PartnerDashboardPage() {
                 <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
                   <LinkIcon size={20} className="text-emerald-400" />
                 </div>
-                <h3 className="font-semibold text-foreground">Seu link de parceiro</h3>
+                <h3 className="font-semibold text-foreground">{t('dashboard.yourPartnerLink')}</h3>
               </div>
 
               <div className="flex items-center gap-2 p-3 bg-background-tertiary rounded-lg mb-4">
@@ -352,7 +420,7 @@ export default function PartnerDashboardPage() {
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-violet-500/20 hover:bg-violet-500/30 text-violet-400 text-sm font-medium transition-colors disabled:opacity-50"
                 >
                   <Copy size={16} />
-                  {linkCopied ? 'Copiado!' : 'Copiar link'}
+                  {linkCopied ? t('dashboard.copied') : t('dashboard.copyLink')}
                 </button>
                 <button
                   onClick={handleShareWhatsApp}
@@ -365,19 +433,19 @@ export default function PartnerDashboardPage() {
               </div>
 
               <p className="text-xs text-foreground-muted mt-4">
-                Use este link para indicar projetos. Seu código: <strong>{profile?.code || '---'}</strong>
+                {t('dashboard.useThisLink')} <strong>{profile?.code || '---'}</strong>
               </p>
             </div>
 
             {/* 🟨 CARD - Indicações resumo */}
             <div className="bg-background-secondary rounded-xl p-6 border border-card-border">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="font-semibold text-foreground">Resumo de Indicações</h3>
+                <h3 className="font-semibold text-foreground">{t('dashboard.referralsSummaryTitle')}</h3>
                 <Link
                   href={`/${locale}/plataforma-parceiro/indicacoes`}
                   className="text-sm text-violet-400 hover:text-violet-300 font-medium"
                 >
-                  Ver todas
+                  {t('dashboard.viewAll')}
                 </Link>
               </div>
 
@@ -387,14 +455,14 @@ export default function PartnerDashboardPage() {
                     <Clock size={20} className="text-yellow-400" />
                   </div>
                   <p className="text-2xl font-bold text-foreground">{stats.emAndamento}</p>
-                  <p className="text-xs text-foreground-muted">Em andamento</p>
+                  <p className="text-xs text-foreground-muted">{t('dashboard.inProgress')}</p>
                 </div>
                 <div className="text-center">
                   <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center mx-auto mb-2">
                     <Check size={20} className="text-emerald-400" />
                   </div>
                   <p className="text-2xl font-bold text-foreground">{stats.fechados}</p>
-                  <p className="text-xs text-foreground-muted">Fechados</p>
+                  <p className="text-xs text-foreground-muted">{t('dashboard.closedDeals')}</p>
                 </div>
                 <div className="text-center">
                   <div className="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center mx-auto mb-2">
@@ -410,13 +478,13 @@ export default function PartnerDashboardPage() {
           {/* =========== LISTA DE INDICAÇÕES =========== */}
           <div className="bg-background-secondary rounded-xl border border-card-border overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4 border-b border-card-border">
-              <h2 className="font-semibold text-foreground">Suas Indicações</h2>
+              <h2 className="font-semibold text-foreground">{t('dashboard.yourReferralsList')}</h2>
               <div className="flex items-center gap-3">
                 <Link
                   href={`/${locale}/plataforma-parceiro/indicacoes`}
                   className="text-sm text-violet-400 hover:text-violet-300 font-medium flex items-center gap-1"
                 >
-                  Ver todas <ChevronRight size={16} />
+                  {t('dashboard.viewAll')} <ChevronRight size={16} />
                 </Link>
               </div>
             </div>
@@ -430,19 +498,19 @@ export default function PartnerDashboardPage() {
               ) : leads.length === 0 ? (
                 <div className="text-center py-12">
                   <Users size={48} className="mx-auto text-foreground-muted mb-4" />
-                  <p className="text-foreground-muted mb-2">Nenhuma indicação ainda</p>
+                  <p className="text-foreground-muted mb-2">{t('dashboard.noReferralsYet')}</p>
                   <p className="text-sm text-foreground-muted">
-                    Compartilhe seu link para começar a indicar projetos!
+                    {t('dashboard.shareYourLink')}
                   </p>
                 </div>
               ) : (
                 <table className="w-full">
                   <thead className="bg-background-tertiary">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Lead</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Data</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">Contato</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('dashboard.lead')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('dashboard.date')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('dashboard.status')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wider">{t('dashboard.contact')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-card-border">
@@ -454,7 +522,7 @@ export default function PartnerDashboardPage() {
                             <p className="font-medium text-foreground">{lead.name}</p>
                           </td>
                           <td className="px-6 py-4">
-                            <p className="text-sm text-foreground">{new Date(lead.created_at).toLocaleDateString('pt-BR')}</p>
+                            <p className="text-sm text-foreground">{new Date(lead.created_at).toLocaleDateString(locale === 'en' ? 'en-US' : 'pt-BR')}</p>
                             <p className="text-xs text-foreground-muted">{formatRelativeDate(lead.created_at)}</p>
                           </td>
                           <td className="px-6 py-4">
@@ -477,6 +545,59 @@ export default function PartnerDashboardPage() {
           </div>
         </main>
       </div>
+
+      {/* =========== MODAL DE RESGATE DE BÔNUS =========== */}
+      {bonusModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setBonusModalOpen(false)}
+          />
+          <div className="relative w-full max-w-md bg-background-secondary border border-card-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+            <div className="p-8 text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/20 pulse-animation">
+                <Trophy size={40} className="text-white" />
+              </div>
+              
+              <h3 className="text-2xl font-bold text-white mb-2">{t('modals.bonusRedeemed.title')}</h3>
+              <p className="text-foreground-secondary mb-6 leading-relaxed">
+                {t('modals.bonusRedeemed.message')}
+              </p>
+              
+              <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl p-4 mb-8">
+                <p className="text-violet-400 font-medium text-sm">
+                  {t('modals.bonusRedeemed.note')}
+                </p>
+              </div>
+              
+              <button
+                onClick={() => setBonusModalOpen(false)}
+                className="w-full py-4 rounded-xl bg-white text-black font-bold hover:bg-zinc-200 transition-colors cursor-pointer"
+              >
+                {t('modals.bonusRedeemed.button')}
+              </button>
+            </div>
+            
+            <button 
+              onClick={() => setBonusModalOpen(false)}
+              className="absolute top-4 right-4 p-2 text-foreground-muted hover:text-white transition-colors"
+            >
+              <X size={20} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes pulse {
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+          70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+          100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+        .pulse-animation {
+          animation: pulse 2s infinite;
+        }
+      `}</style>
     </div>
   );
 }

@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/providers';
 import { supabase } from '@/components/clients/Supabase';
 import PartnerSidebar from '@/components/partner-platform/PartnerSidebar';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import {
     Check,
     Copy,
@@ -25,7 +26,8 @@ import {
     User,
     Building,
     CreditCard,
-    AlertCircle
+    AlertCircle,
+    Globe
 } from 'lucide-react';
 
 export default function PerfilPage() {
@@ -114,7 +116,7 @@ export default function PerfilPage() {
                 throw error;
             }
 
-            setMessage({ type: 'success', text: 'Perfil atualizado com sucesso!' });
+            setMessage({ type: 'success', text: t('profile.profileUpdated') });
             setIsEditing(false);
 
             // Atualiza o profile no contexto
@@ -131,12 +133,12 @@ export default function PerfilPage() {
 
     const handleChangePassword = async () => {
         if (passwordData.newPassword !== passwordData.confirmPassword) {
-            setMessage({ type: 'error', text: 'As senhas não coincidem' });
+            setMessage({ type: 'error', text: t('profile.passwordsDontMatch') });
             return;
         }
 
         if (passwordData.newPassword.length < 6) {
-            setMessage({ type: 'error', text: 'A nova senha deve ter pelo menos 6 caracteres' });
+            setMessage({ type: 'error', text: t('profile.passwordMinLength') });
             return;
         }
 
@@ -152,7 +154,7 @@ export default function PerfilPage() {
                 throw error;
             }
 
-            setMessage({ type: 'success', text: 'Senha alterada com sucesso!' });
+            setMessage({ type: 'success', text: t('profile.passwordChanged') });
             setIsChangingPassword(false);
             setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
         } catch (error: any) {
@@ -165,7 +167,7 @@ export default function PerfilPage() {
 
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);
-        setMessage({ type: 'success', text: 'Copiado!' });
+        setMessage({ type: 'success', text: t('profile.codeCopied') });
         setTimeout(() => setMessage(null), 2000);
     };
 
@@ -175,7 +177,7 @@ export default function PerfilPage() {
             <div className="min-h-screen flex items-center justify-center bg-background">
                 <div className="flex flex-col items-center gap-4">
                     <Loader2 size={40} className="animate-spin text-violet-500" />
-                    <p className="text-foreground-muted">Carregando...</p>
+                    <p className="text-foreground-muted">{t('common.loading')}</p>
                 </div>
             </div>
         );
@@ -205,7 +207,7 @@ export default function PerfilPage() {
                     >
                         <Menu size={24} className="text-foreground" />
                     </button>
-                    <p className="text-sm font-medium text-foreground">Perfil</p>
+                    <p className="text-sm font-medium text-foreground">{t('profile.title')}</p>
                     <div className="w-10" />
                 </div>
 
@@ -230,10 +232,10 @@ export default function PerfilPage() {
                                 <p className="text-foreground-muted mb-2">{user?.email}</p>
                                 <div className="flex flex-wrap gap-2">
                                     <span className="px-3 py-1 rounded-full bg-violet-500/20 text-violet-400 text-xs font-medium">
-                                        Parceiro
+                                        {t('profile.partnerBadge')}
                                     </span>
                                     <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-medium">
-                                        {profile?.status || 'Ativo'}
+                                        {profile?.status || t('profile.activeBadge')}
                                     </span>
                                 </div>
                             </div>
@@ -255,14 +257,14 @@ export default function PerfilPage() {
                         <div className="px-6 py-4 border-b border-card-border flex items-center justify-between">
                             <h3 className="font-semibold text-foreground flex items-center gap-2">
                                 <User size={18} className="text-violet-400" />
-                                Informações Pessoais
+                                {t('profile.personalInfo')}
                             </h3>
                             {!isEditing ? (
                                 <button
                                     onClick={() => setIsEditing(true)}
                                     className="px-4 py-2 rounded-lg bg-violet-500 hover:bg-violet-600 text-white text-sm font-medium transition-colors cursor-pointer"
                                 >
-                                    Editar
+                                    {t('profile.edit')}
                                 </button>
                             ) : (
                                 <div className="flex gap-2">
@@ -270,7 +272,7 @@ export default function PerfilPage() {
                                         onClick={() => setIsEditing(false)}
                                         className="px-4 py-2 rounded-lg bg-background-tertiary hover:bg-background text-foreground-muted text-sm font-medium transition-colors cursor-pointer"
                                     >
-                                        Cancelar
+                                        {t('profile.cancel')}
                                     </button>
                                     <button
                                         onClick={handleSaveProfile}
@@ -278,14 +280,14 @@ export default function PerfilPage() {
                                         className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
                                     >
                                         {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-                                        Salvar
+                                        {t('profile.save')}
                                     </button>
                                 </div>
                             )}
                         </div>
                         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label className="block text-sm text-foreground-muted mb-2">Nome Completo</label>
+                                <label className="block text-sm text-foreground-muted mb-2">{t('profile.fullName')}</label>
                                 {isEditing ? (
                                     <input
                                         type="text"
@@ -299,14 +301,14 @@ export default function PerfilPage() {
                                 )}
                             </div>
                             <div>
-                                <label className="block text-sm text-foreground-muted mb-2">Email</label>
+                                <label className="block text-sm text-foreground-muted mb-2">{t('profile.email')}</label>
                                 <p className="text-white font-medium flex items-center gap-2">
                                     <Mail size={16} className="text-foreground-muted" />
                                     {user?.email || '—'}
                                 </p>
                             </div>
                             <div>
-                                <label className="block text-sm text-foreground-muted mb-2">Telefone</label>
+                                <label className="block text-sm text-foreground-muted mb-2">{t('profile.phone')}</label>
                                 {isEditing ? (
                                     <input
                                         type="tel"
@@ -324,7 +326,7 @@ export default function PerfilPage() {
                                 )}
                             </div>
                             <div>
-                                <label className="block text-sm text-foreground-muted mb-2">Membro desde</label>
+                                <label className="block text-sm text-foreground-muted mb-2">{t('profile.memberSince')}</label>
                                 <p className="text-white font-medium">
                                     {profile?.created_at
                                         ? new Date(profile.created_at).toLocaleDateString('pt-BR', {
@@ -339,24 +341,40 @@ export default function PerfilPage() {
                         </div>
                     </div>
 
+                    {/* Language Settings */}
+                    <div className="bg-background-secondary rounded-xl border border-card-border mb-6 overflow-hidden">
+                        <div className="px-6 py-4 border-b border-card-border">
+                            <h3 className="font-semibold text-foreground flex items-center gap-2">
+                                <Globe size={18} className="text-cyan-400" />
+                                {t('profile.languagePreferences')}
+                            </h3>
+                        </div>
+                        <div className="p-6">
+                            <p className="text-sm text-foreground-muted mb-4">
+                                {t('profile.languageDescription')}
+                            </p>
+                            <LanguageSwitcher variant="inline" />
+                        </div>
+                    </div>
+
                     {/* Bank Info */}
                     <div className="bg-background-secondary rounded-xl border border-card-border mb-6">
                         <div className="px-6 py-4 border-b border-card-border">
                             <h3 className="font-semibold text-foreground flex items-center gap-2">
                                 <CreditCard size={18} className="text-emerald-400" />
-                                Dados para Pagamento
+                                {t('profile.paymentInfo')}
                             </h3>
                         </div>
                         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="md:col-span-2">
-                                <label className="block text-sm text-foreground-muted mb-2">Chave PIX</label>
+                                <label className="block text-sm text-foreground-muted mb-2">{t('profile.pixKey')}</label>
                                 {isEditing ? (
                                     <input
                                         type="text"
                                         name="pix_key"
                                         value={formData.pix_key}
                                         onChange={handleInputChange}
-                                        placeholder="CPF, Email, Telefone ou Chave Aleatória"
+                                        placeholder={t('profile.pixKeyPlaceholder')}
                                         className="w-full px-4 py-3 bg-background border border-card-border rounded-lg text-foreground focus:outline-none focus:border-violet-500 transition-colors"
                                     />
                                 ) : (
@@ -364,14 +382,14 @@ export default function PerfilPage() {
                                 )}
                             </div>
                             <div>
-                                <label className="block text-sm text-foreground-muted mb-2">Banco</label>
+                                <label className="block text-sm text-foreground-muted mb-2">{t('profile.bank')}</label>
                                 {isEditing ? (
                                     <input
                                         type="text"
                                         name="bank_name"
                                         value={formData.bank_name}
                                         onChange={handleInputChange}
-                                        placeholder="Nome do banco"
+                                        placeholder={t('profile.bankPlaceholder')}
                                         className="w-full px-4 py-3 bg-background border border-card-border rounded-lg text-foreground focus:outline-none focus:border-violet-500 transition-colors"
                                     />
                                 ) : (
@@ -383,14 +401,14 @@ export default function PerfilPage() {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm text-foreground-muted mb-2">Agência</label>
+                                    <label className="block text-sm text-foreground-muted mb-2">{t('profile.agency')}</label>
                                     {isEditing ? (
                                         <input
                                             type="text"
                                             name="bank_agency"
                                             value={formData.bank_agency}
                                             onChange={handleInputChange}
-                                            placeholder="0000"
+                                            placeholder={t('profile.agencyPlaceholder')}
                                             className="w-full px-4 py-3 bg-background border border-card-border rounded-lg text-foreground focus:outline-none focus:border-violet-500 transition-colors"
                                         />
                                     ) : (
@@ -398,14 +416,14 @@ export default function PerfilPage() {
                                     )}
                                 </div>
                                 <div>
-                                    <label className="block text-sm text-foreground-muted mb-2">Conta</label>
+                                    <label className="block text-sm text-foreground-muted mb-2">{t('profile.account')}</label>
                                     {isEditing ? (
                                         <input
                                             type="text"
                                             name="bank_account"
                                             value={formData.bank_account}
                                             onChange={handleInputChange}
-                                            placeholder="00000-0"
+                                            placeholder={t('profile.accountPlaceholder')}
                                             className="w-full px-4 py-3 bg-background border border-card-border rounded-lg text-foreground focus:outline-none focus:border-violet-500 transition-colors"
                                         />
                                     ) : (
@@ -421,14 +439,14 @@ export default function PerfilPage() {
                         <div className="px-6 py-4 border-b border-card-border flex items-center justify-between">
                             <h3 className="font-semibold text-foreground flex items-center gap-2">
                                 <Lock size={18} className="text-yellow-400" />
-                                Segurança
+                                {t('profile.security')}
                             </h3>
                             {!isChangingPassword && (
                                 <button
                                     onClick={() => setIsChangingPassword(true)}
                                     className="px-4 py-2 rounded-lg bg-background-tertiary hover:bg-background text-foreground text-sm font-medium transition-colors cursor-pointer"
                                 >
-                                    Alterar Senha
+                                    {t('profile.changePassword')}
                                 </button>
                             )}
                         </div>
@@ -436,7 +454,7 @@ export default function PerfilPage() {
                         {isChangingPassword ? (
                             <div className="p-6 space-y-4">
                                 <div>
-                                    <label className="block text-sm text-foreground-muted mb-2">Nova Senha</label>
+                                    <label className="block text-sm text-foreground-muted mb-2">{t('profile.newPassword')}</label>
                                     <div className="relative">
                                         <input
                                             type={showNewPassword ? 'text' : 'password'}
@@ -455,7 +473,7 @@ export default function PerfilPage() {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm text-foreground-muted mb-2">Confirmar Nova Senha</label>
+                                    <label className="block text-sm text-foreground-muted mb-2">{t('profile.confirmNewPassword')}</label>
                                     <input
                                         type="password"
                                         name="confirmPassword"
@@ -472,7 +490,7 @@ export default function PerfilPage() {
                                         }}
                                         className="px-4 py-2 rounded-lg bg-background-tertiary hover:bg-background text-foreground-muted text-sm font-medium transition-colors cursor-pointer"
                                     >
-                                        Cancelar
+                                        {t('profile.cancel')}
                                     </button>
                                     <button
                                         onClick={handleChangePassword}
@@ -480,14 +498,14 @@ export default function PerfilPage() {
                                         className="px-4 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-black text-sm font-medium transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
                                     >
                                         {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Lock size={16} />}
-                                        Alterar Senha
+                                        {t('profile.changePassword')}
                                     </button>
                                 </div>
                             </div>
                         ) : (
                             <div className="p-6">
                                 <p className="text-foreground-muted text-sm">
-                                    Mantenha sua conta segura atualizando sua senha regularmente.
+                                    {t('profile.securityTip')}
                                 </p>
                             </div>
                         )}

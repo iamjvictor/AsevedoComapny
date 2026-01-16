@@ -6,10 +6,25 @@
  */
 
 import { useLocale, useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { supabase } from '@/components/clients/Supabase';
 
 export default function ClientePage() {
   const locale = useLocale();
+  const router = useRouter();
   const t = useTranslations('Common');
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push(`/${locale}/login?redirect=cliente`);
+      }
+    };
+    
+    checkAuth();
+  }, [locale, router]);
 
   return (
     <main className="min-h-screen bg-background pt-32 px-6">

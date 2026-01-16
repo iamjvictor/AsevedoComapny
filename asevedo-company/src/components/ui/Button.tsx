@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface ButtonBaseProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   /** Button style variant */
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -23,7 +23,7 @@ interface ButtonBaseProps {
   fullWidth?: boolean;
 }
 
-interface ButtonAsButtonProps extends ButtonBaseProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
+interface ButtonAsButtonProps extends ButtonBaseProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'> {
   href?: never;
   external?: never;
 }
@@ -48,7 +48,7 @@ export function Button({
   fullWidth = false,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer';
   
   const variants = {
     primary: 'bg-gradient-to-r from-primary to-secondary text-background hover:shadow-lg hover:shadow-primary-glow/30 hover:scale-[1.02]',

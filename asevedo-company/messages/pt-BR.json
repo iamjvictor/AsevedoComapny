@@ -40,6 +40,38 @@
       "loading": "Carregando..."
     }
   },
+  "ForgotPassword": {
+    "title": "Recupere sua senha",
+    "subtitle": "Digite seu e-mail para receber as instruções de recuperação.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "seu@email.com",
+    "submitButton": "Enviar instruções",
+    "submitting": "Enviando...",
+    "backToLogin": "Voltar para o login",
+    "success": {
+      "title": "E-mail enviado!",
+      "message": "Enviamos as instruções de recuperação para o e-mail informado.",
+      "checkSpam": "Não esqueça de verificar sua caixa de spam."
+    },
+    "error": "Erro ao enviar e-mail. Verifique se o endereço está correto."
+  },
+  "ResetPassword": {
+    "title": "Nova senha",
+    "subtitle": "Crie uma nova senha para sua conta.",
+    "passwordLabel": "Nova Senha",
+    "passwordPlaceholder": "Mínimo 6 caracteres",
+    "confirmLabel": "Confirmar Nova Senha",
+    "confirmPlaceholder": "Repita a senha",
+    "submitButton": "Redefinir Senha",
+    "submitting": "Redefinindo...",
+    "success": {
+      "title": "Senha alterada!",
+      "message": "Sua senha foi redefinida com sucesso. Agora você pode fazer login."
+    },
+    "error": "Erro ao redefinir senha. O link pode ter expirado.",
+    "matchError": "As senhas não coincidem.",
+    "samePasswordError": "A nova senha deve ser diferente da senha atual."
+  },
   "Header": {
     "getQuote": "Fazer Orçamento",
     "clientArea": "Área do Cliente",
@@ -343,9 +375,21 @@
     },
     "sidebar": {
       "portalTitle": "Portal do Parceiro",
+      "companyName": "Asevedo Company",
       "dashboard": "Dashboard",
       "referrals": "Indicações",
       "commissions": "Comissões",
+      "getStarted": "Comece Aqui",
+      "sectionLabels": {
+        "introducao": "Introdução",
+        "servicos": "Nossos Serviços",
+        "identificando-dor": "Identificando Dor",
+        "processo": "O Processo",
+        "boas-praticas": "Boas Práticas",
+        "estrategias": "Estratégias",
+        "materiais": "Materiais",
+        "proximo-passo": "Próximo Passo"
+      },
       "profile": "Perfil",
       "settings": "Configurações",
       "logout": "Sair"
@@ -353,33 +397,282 @@
     "dashboard": {
       "title": "Dashboard",
       "welcome": "Bem-vindo de volta",
+      "yourReferrals": "Suas Indicações",
+      "referralsSummary": "Resumo das suas indicações",
       "totalReferrals": "Total de indicações",
-      "activeReferrals": "Em andamento",
-      "paidCommissions": "Comissões pagas",
+      "closedDeals": "Fechados",
+      "inProgress": "Em andamento",
       "conversionRate": "Taxa de conversão",
-      "recentReferrals": "Indicações Recentes",
+      "viewHistory": "Ver histórico",
+      "bonusGoal": "Meta de Bônus",
+      "contractsOf": "contratos",
+      "bonusUnlocked": "🎉 Bônus desbloqueado!",
+      "contractsLeft": "🔓 Faltam {count} para desbloquear o bônus",
+      "redeemBonus": "Resgatar Bônus",
+      "yourPartnerLink": "Seu link de parceiro",
+      "copyLink": "Copiar link",
+      "copied": "Copiado!",
+      "useThisLink": "Use este link para indicar projetos. Seu código:",
+      "referralsSummaryTitle": "Resumo de Indicações",
       "viewAll": "Ver todas",
-      "pendingCommissions": "Comissões pendentes",
-      "pendingMessage": "Você tem comissões aguardando aprovação. O pagamento é processado após a confirmação do contrato.",
-      "quickActions": "Ações Rápidas",
-      "newReferral": "Nova Indicação",
-      "viewStatement": "Ver Extrato"
+      "yourReferralsList": "Suas Indicações",
+      "noReferralsYet": "Nenhuma indicação ainda",
+      "shareYourLink": "Compartilhe seu link para começar a indicar projetos!",
+      "lead": "Lead",
+      "date": "Data",
+      "status": "Status",
+      "contact": "Contato",
+      "today": "Hoje",
+      "yesterday": "Ontem",
+      "daysAgo": "dias atrás",
+      "weeksAgo": "semanas atrás"
+    },
+    "commissions": {
+      "title": "Comissões",
+      "subtitle": "Acompanhe suas comissões por indicação",
+      "totalCommissions": "Total em Comissões",
+      "availableForWithdraw": "Disponível para Saque",
+      "availableTooltip": "O valor disponível corresponde à sua comissão sobre o que o cliente já pagou. Como os contratos podem ser parcelados, a comissão vai sendo liberada conforme os pagamentos são realizados.",
+      "pending": "Pendente",
+      "awaitingPayment": "Aguardando pagamento do cliente",
+      "leadContract": "Lead / Contrato",
+      "contractValue": "Valor do Contrato",
+      "totalCommission": "Comissão Total",
+      "available": "Disponível",
+      "action": "Ação",
+      "paid": "Pago",
+      "withdraw": "Sacar",
+      "awaitingPaymentShort": "Aguardando pagamento",
+      "noCommissionsYet": "Nenhuma comissão ainda",
+      "noCommissionsMessage": "Quando seus leads fecharem contratos, suas comissões aparecerão aqui.",
+      "howItWorks": "Como funciona:",
+      "howItWorksDescription": "Você recebe comissão sobre cada contrato fechado através da sua indicação. O valor disponível para saque aumenta conforme o cliente realiza os pagamentos.",
+      "entryPrize": {
+        "title": "PREMIAÇÃO DE ENTRADA",
+        "subtitle": "Bônus Exclusivo de Boas-vindas",
+        "timeRemaining": "Tempo Restante",
+        "progress": "Progresso",
+        "goal": "Meta",
+        "ended": "Encerrado",
+        "startOfJourney": "Início da Jornada",
+        "bonusUnlocked": "Bônus Desbloqueado 🎁",
+        "congratulations": "🎉 PARABÉNS! VOCÊ ATINGIU O DESAFIO DE ENTRADA!",
+        "redeemPrize": "Resgatar Premiação",
+        "modalTitle": "Premiação de Entrada",
+        "modalDescription": "Queremos premiar nossos novos parceiros que já chegam com foco total! O desafio é simples:",
+        "step1": "Capture leads qualificados em seus primeiros 30 dias de plataforma.",
+        "step2": "Se os contratos gerados por esses leads somarem R$ 3.000,00 em comissões para você...",
+        "step3": "Você ganha um Bônus Especial em Dinheiro além das suas comissões normais!",
+        "note": "*Importante: O que vale é a data de captura do lead. Mesmo que o contrato demore mais de 30 dias para fechar, ele conta para o desafio se o lead foi criado no seu primeiro mês.",
+        "letsGo": "Vamos pra cima! 🚀"
+      }
+    },
+    "referrals": {
+      "title": "Indicações",
+      "subtitle": "Acompanhe todas as suas indicações",
+      "searchPlaceholder": "Buscar por nome ou e-mail...",
+      "filterAll": "Todas",
+      "filterNew": "Novas",
+      "filterInProgress": "Em Andamento",
+      "filterClosed": "Fechadas",
+      "filterLost": "Não Avançaram",
+      "noResults": "Nenhuma indicação encontrada",
+      "noResultsMessage": "Tente ajustar os filtros ou o termo de busca.",
+      "showing": "Mostrando {filtered} de {total} indicações"
+    },
+    "profile": {
+      "title": "Perfil",
+      "personalInfo": "Informações Pessoais",
+      "edit": "Editar",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "fullName": "Nome Completo",
+      "email": "Email",
+      "phone": "Telefone",
+      "memberSince": "Membro desde",
+      "languagePreferences": "Idioma e Preferências",
+      "languageDescription": "Escolha o idioma de sua preferência para navegar na plataforma.",
+      "paymentInfo": "Dados para Pagamento",
+      "pixKey": "Chave PIX",
+      "pixKeyPlaceholder": "CPF, Email, Telefone ou Chave Aleatória",
+      "bank": "Banco",
+      "bankPlaceholder": "Nome do banco",
+      "agency": "Agência",
+      "agencyPlaceholder": "0000",
+      "account": "Conta",
+      "accountPlaceholder": "00000-0",
+      "security": "Segurança",
+      "changePassword": "Alterar Senha",
+      "newPassword": "Nova Senha",
+      "confirmNewPassword": "Confirmar Nova Senha",
+      "securityTip": "Mantenha sua conta segura atualizando sua senha regularmente.",
+      "profileUpdated": "Perfil atualizado com sucesso!",
+      "passwordChanged": "Senha alterada com sucesso!",
+      "passwordsDontMatch": "As senhas não coincidem",
+      "passwordMinLength": "A nova senha deve ter pelo menos 6 caracteres",
+      "partnerBadge": "Parceiro",
+      "activeBadge": "Ativo",
+      "codeCopied": "Copiado!"
+    },
+    "getStarted": {
+      "title": "Manual do Parceiro Comercial",
+      "subtitle": "Seu guia completo para indicar projetos",
+      "intro": {
+        "title": "O Papel do Parceiro Comercial",
+        "description1": "Como parceiro comercial da Asevedo Company, você atua como uma ponte estratégica entre empresas com problemas reais e nossa equipe de engenharia especializada.",
+        "description2": "Seu papel não é vender serviços, negociar valores ou executar projetos. Seu foco é identificar oportunidades e direcionar leads qualificados para nossa equipe.",
+        "mainObjective": "Seu objetivo principal:",
+        "mainGoal": "Identificar uma dor real e conduzir o lead até o diagnóstico técnico da Asevedo Company.",
+        "step1": "Você identifica a dor",
+        "step2": "O engenheiro responsável faz o diagnóstico",
+        "step3": "A empresa propõe a solução e o orçamento"
+      },
+      "services": {
+        "title": "Que Tipos de Problemas Resolvemos",
+        "description": "Entenda os tipos de dores que nossa equipe resolve. Pense em problemas, não em tecnologia.",
+        "automation": { "title": "Automação de Processos", "desc": "Trabalho manual repetitivo, retrabalho, tarefas que consomem horas" },
+        "integration": { "title": "Integração de Sistemas", "desc": "Ferramentas desconectadas, dados duplicados, falta de sincronização" },
+        "systems": { "title": "Sistemas Internos", "desc": "Falta de controle, decisões sem dados, processos desorganizados" },
+        "maintenance": { "title": "Manutenção de Software", "desc": "Sistemas antigos, bugs recorrentes, falta de suporte técnico" },
+        "ai": { "title": "IA Aplicada", "desc": "Análise de dados manual, previsões imprecisas, atendimento sobrecarregado" },
+        "tip": "Lembre-se: O parceiro não oferece serviços. Ele identifica problemas."
+      },
+      "identifying": {
+        "title": "Como Identificar uma Boa Oportunidade",
+        "description": "A dor surge em conversas normais, observações e reclamações do dia a dia. Fique atento aos sinais.",
+        "signsTitle": "Sinais de dor em empresas:",
+        "signs": [
+          "Processos manuais e repetitivos",
+          "Excesso de planilhas para controle",
+          "Sistemas lentos ou ultrapassados",
+          "Falta de visibilidade da operação",
+          "Donos sobrecarregados com tarefas operacionais",
+          "Informações espalhadas em vários lugares",
+          "Erros frequentes por falta de automação",
+          "Dificuldade em escalar o negócio"
+        ],
+        "checklistTitle": "Checklist de Qualificação",
+        "checklistDesc": "Se a empresa apresenta 2 ou mais desses pontos, é uma oportunidade qualificada para indicação.",
+        "goldenTip": "Dica de Ouro: Qualidade do Lead",
+        "goldenTipDesc": "Quanto melhor o cliente, melhor o contrato, melhor a sua comissão.",
+        "goldenTipNote": "É difícil cobrar um valor justo do \"Seu Zé da Padaria\" que fatura R$ 5k/mês. Busque empresas com estrutura, faturamento e capacidade de investimento real.",
+        "avoid": "Evite:",
+        "avoidDesc": "Microempresas sem faturamento, negócios informais, quem não tem verba para investir",
+        "seek": "Busque:",
+        "seekDesc": "PMEs estruturadas, empresas em crescimento, operações com gargalos reais"
+      },
+      "process": {
+        "title": "Como Funciona o Processo",
+        "description": "Você indica, nós cuidamos do resto. Seu papel termina no momento em que o lead agenda a conversa.",
+        "steps": [
+          { "title": "Identifica a dor", "desc": "Percebe o problema" },
+          { "title": "Apresenta Asevedo", "desc": "Indica a empresa" },
+          { "title": "Lead acessa link", "desc": "Usa seu link" },
+          { "title": "Preenche formulário", "desc": "Descreve a dor" },
+          { "title": "Agenda a call", "desc": "Escolhe horário" },
+          { "title": "Call técnica", "desc": "Head de Engenharia" },
+          { "title": "Proposta", "desc": "Escopo e valor" }
+        ],
+        "nextStep": "O próximo passo: Call com o Head de Engenharia",
+        "nextStepDesc": "O diagnóstico é feito diretamente com a liderança técnica da empresa. Isso garante autoridade, precisão técnica e uma proposta realmente alinhada com as necessidades do cliente.",
+        "nextStepNote": "Seu trabalho já foi feito. A partir daqui, a equipe da Asevedo conduz todo o processo comercial e técnico."
+      },
+      "bestPractices": {
+        "title": "Boas Práticas de Abordagem",
+        "doTitle": "O que fazer",
+        "doItems": [
+          "Ouvir mais do que falar",
+          "Fazer perguntas simples sobre o dia a dia",
+          "Focar no problema, não na solução",
+          "Deixar o lead descrever a própria dor",
+          "Direcionar para o site com seu link",
+          "Ser genuíno e empático"
+        ],
+        "dontTitle": "O que evitar",
+        "dontItems": [
+          "Prometer preço ou prazo",
+          "Explicar tecnologias ou linguagens",
+          "Tentar fechar contrato você mesmo",
+          "Coletar informações técnicas profundas",
+          "Falar mal de concorrentes",
+          "Pressionar para decisão imediata"
+        ]
+      },
+      "strategies": {
+        "title": "Estratégias de Prospecção",
+        "personal": { "title": "Prospecção Pessoal", "items": ["Conversas naturais", "Networking", "Contatos próximos", "Indicação orgânica"] },
+        "network": { "title": "Rede de Contatos", "items": ["Profissionais de outras áreas", "Empresários conhecidos", "Parceiros estratégicos", "Grupos de negócios"] },
+        "darkContent": { 
+          "title": "Conteúdo Dark", 
+          "label": "Estratégia mais escalável",
+          "desc": "Crie vídeos curtos sem mostrar o rosto, focando em provocar a dor do empresário.",
+          "items": ["Fundo escuro + texto", "Narração simples", "Foco na dor", "CTA para seu link"]
+        },
+        "local": { "title": "Prospecção Local", "items": ["Ligações para estabelecimentos", "Visitas presenciais", "Empresas tradicionais", "Comércios locais"] },
+        "goal": "O objetivo não é vender, é despertar interesse pelo diagnóstico."
+      },
+      "materials": {
+        "title": "Materiais para Parceiros",
+        "description": "A Asevedo Company disponibiliza materiais oficiais para facilitar sua prospecção.",
+        "items": [
+          { "title": "Pack de Criativos", "desc": "Reels, Shorts e TikToks prontos" },
+          { "title": "Templates Visuais", "desc": "Artes dark para redes sociais" },
+          { "title": "Material Institucional", "desc": "Apresentações e documentos" },
+          { "title": "Conteúdos Explicativos", "desc": "Guias e tutoriais em vídeo" }
+        ],
+        "note": "Os materiais serão disponibilizados e atualizados regularmente pela empresa.",
+        "accessButton": "Acessar Materiais Disponíveis"
+      },
+      "cta": {
+        "title": "Pronto para Começar",
+        "description": "Você agora conhece o papel estratégico do parceiro, a simplicidade do processo e o foco em diagnóstico e solução.",
+        "summaryTitle": "Resumo para Sucesso",
+        "tip1Title": "Busque clientes qualificados",
+        "tip1Desc": "Empresas com estrutura e capacidade de investimento",
+        "tip2Title": "Seja profissional",
+        "tip2Desc": "Deixe o diagnóstico com o Head de Engenharia",
+        "tip3Title": "Qualidade = Comissão",
+        "tip3Desc": "Melhor cliente = Melhor contrato = Melhor ganho",
+        "copyLink": "Copiar Link de Indicação",
+        "linkCopied": "Link Copiado!",
+        "viewReferrals": "Ver Minhas Indicações",
+        "accessMaterials": "Acessar Materiais",
+        "finalTip": "Quanto melhor a dor descrita pelo lead, melhor será a solução proposta — e maior será o seu retorno."
+      }
     },
     "status": {
-      "pending": "Pendente",
-      "diagnosis": "Diagnóstico",
-      "negotiation": "Negociação",
+      "new": "Novo",
+      "inContact": "Em Contato",
+      "qualified": "Qualificado",
+      "proposalSent": "Proposta Enviada",
+      "negotiation": "Em Negociação",
       "closed": "Fechado",
-      "lost": "Perdido"
+      "lost": "Não Avançou"
     },
     "notifications": {
-      "title": "Notificações"
+      "title": "Notificações",
+      "empty": "Nenhuma notificação"
     },
-    "features": {
-      "realTimeMetrics": "Dashboard com métricas em tempo real",
-      "referralHistory": "Histórico completo de indicações",
-      "commissionTracking": "Acompanhamento de comissões",
-      "directCommunication": "Comunicação direta com a equipe"
+    "modals": {
+      "bonusRedeemed": {
+        "title": "Parabéns! 🎉",
+        "message": "Você acaba de resgatar o seu bônus por bater a meta de 5 contratos. Sua dedicação é incrível!",
+        "note": "Recebemos seu pedido e entraremos em contato em breve para realizar o pagamento.",
+        "button": "Entendido, obrigado!"
+      },
+      "prizeRedeemed": {
+        "title": "Incrível! 🎉",
+        "message": "Você superou o desafio dos primeiros 30 dias e provou que é um parceiro de elite!",
+        "note": "Parabéns, você irá receber um bônus especial, aguarde que entraremos em contato para realizar o pagamento!!",
+        "button": "Entendido, obrigado!"
+      }
+    },
+    "common": {
+      "loading": "Carregando...",
+      "error": "Erro",
+      "success": "Sucesso",
+      "confirm": "Confirmar",
+      "back": "Voltar"
     }
   }
 }

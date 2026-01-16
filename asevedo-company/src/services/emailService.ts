@@ -144,3 +144,85 @@ export async function notifyNewLead(leadData: LeadData): Promise<EmailResponse> 
     };
   }
 }
+
+/**
+ * Envia notificação de bônus atingido pelo parceiro
+ */
+export async function notifyBonusUnlocked(partnerInfo: { name: string; phone: string; pix: string; code: string }): Promise<EmailResponse> {
+  try {
+    const now = new Date();
+    const timestamp = now.toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    const templateParams = {
+      to_email: NOTIFICATION_EMAIL,
+      subject: '🎁 BÔNUS ATINGIDO: Meta de 5 Contratos!',
+      partner_name: partnerInfo.name,
+      partner_phone: partnerInfo.phone,
+      partner_pix: partnerInfo.pix,
+      partner_code: partnerInfo.code,
+      message: `O parceiro ${partnerInfo.name} acaba de bater a meta de 5 contratos e solicitou o resgate do bônus!`,
+      timestamp: timestamp,
+    };
+
+    const response = await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      templateParams,
+      EMAILJS_PUBLIC_KEY
+    );
+
+    console.log('📧 Email de bônus enviado com sucesso:', response.status);
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Erro ao enviar email de bônus:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Erro ao enviar email' };
+  }
+}
+
+/**
+ * Envia notificação de Premiação de Entrada atingida
+ */
+export async function notifyPrizeUnlocked(partnerInfo: { name: string; phone: string; pix: string; code: string; type: string }): Promise<EmailResponse> {
+  try {
+    const now = new Date();
+    const timestamp = now.toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    const templateParams = {
+      to_email: NOTIFICATION_EMAIL,
+      subject: `🎁 DESAFIO ATINGIDO: ${partnerInfo.type}!`,
+      partner_name: partnerInfo.name,
+      partner_phone: partnerInfo.phone,
+      partner_pix: partnerInfo.pix,
+      partner_code: partnerInfo.code,
+      message: `O parceiro ${partnerInfo.name} acaba de bater a meta do desafio "${partnerInfo.type}" e solicitou o resgate do prêmio!`,
+      timestamp: timestamp,
+    };
+
+    const response = await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      templateParams,
+      EMAILJS_PUBLIC_KEY
+    );
+
+    console.log('📧 Email de premiação enviado com sucesso:', response.status);
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Erro ao enviar email de premiação:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Erro ao enviar email' };
+  }
+}
